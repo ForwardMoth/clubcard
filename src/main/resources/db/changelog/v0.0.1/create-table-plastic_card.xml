@@ -1,0 +1,27 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create-table-plastic_card" author="ForwardMoth">
+        <createTable tableName="plastic_card">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="plastic_card_pkey"/>
+            </column>
+            <column name="status" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="fk_plastic_card_user" references="users(id)"/>
+            </column>
+
+            <column name="card_type_id" type="bigint">
+                <constraints foreignKeyName="fk_plastic_card_card_type" references="card_type(id)"/>
+            </column>
+
+            <column name="created_at" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

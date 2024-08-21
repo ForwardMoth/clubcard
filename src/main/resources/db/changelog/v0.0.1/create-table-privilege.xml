@@ -1,0 +1,23 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create-table-privilege" author="ForwardMoth">
+        <createTable tableName="privilege">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="privilege_pkey"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="price" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

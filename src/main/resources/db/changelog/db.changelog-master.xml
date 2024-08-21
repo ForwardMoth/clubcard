@@ -1,0 +1,12 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <include file="v0.0.1/create-table-privilege.xml" relativeToChangelogFile="true"/>
+    <include file="v0.0.1/create-table-card_type.xml" relativeToChangelogFile="true"/>
+    <include file="v0.0.1/create-table-role.xml" relativeToChangelogFile="true"/>
+    <include file="v0.0.1/create-table-users.xml" relativeToChangelogFile="true"/>
+    <include file="v0.0.1/create-table-plastic_card.xml" relativeToChangelogFile="true"/>
+    <include file="v0.0.2/insert-default-data.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>

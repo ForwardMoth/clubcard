@@ -1,0 +1,65 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="insert-default-roles" author="ForwardMoth">
+        <insert tableName="role">
+            <column name="name" value="ADMIN"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="USER"/>
+        </insert>
+    </changeSet>
+    
+    <changeSet id="insert-default-card_types" author="ForwardMoth">
+        <insert tableName="card_type">
+            <column name="name" value="Обычная"/>
+            <column name="description" value="Стандартная карта"/>
+        </insert>
+
+        <insert tableName="card_type">
+            <column name="name" value="С QR-кодом"/>
+            <column name="description" value="Стандартная карта с QR-кодом"/>
+        </insert>
+
+        <insert tableName="card_type">
+            <column name="name" value="С кастомным рисунком 1"/>
+            <column name="description" value="Стандартная карта с кастомным рисунком 1"/>
+        </insert>
+
+        <insert tableName="card_type">
+            <column name="name" value="С кастомным рисунком 2"/>
+            <column name="description" value="Стандартная карта с кастомным рисунком 2"/>
+        </insert>
+
+        <insert tableName="card_type">
+            <column name="name" value="С кастомным рисунком 1 и QR-кодом"/>
+            <column name="description" value="Стандартная карта с кастомным рисунком 1 и QR-кодом"/>
+        </insert>
+
+        <insert tableName="card_type">
+            <column name="name" value="С кастомным рисунком 2 и QR-кодом"/>
+            <column name="description" value="Стандартная карта с кастомным рисунком 2 и QR-кодом"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-default-privileges" author="ForwardMoth">
+        <insert tableName="privilege">
+            <column name="name" value="Стандартный"/>
+            <column name="description" value="Стандартная привилегия для всех участников"/>
+        </insert>
+
+        <insert tableName="privilege">
+            <column name="name" value="Повышенный"/>
+            <column name="description" value="Повышенная привилегия за 500 баллов"/>
+            <column name="price" value="500"/>
+        </insert>
+
+        <insert tableName="privilege">
+            <column name="name" value="VIP"/>
+            <column name="description" value="VIP привилегия за 5000 баллов"/>
+            <column name="price" value="5000"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

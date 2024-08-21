@@ -1,0 +1,55 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create-table-users" author="ForwardMoth">
+        <createTable tableName="users">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            
+            <column name="email" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            
+            <column name="password" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            
+            <column name="first_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            
+            <column name="last_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="second_name" type="varchar(50)"/>
+            
+            <column name="phone_number" type="varchar(11)">
+                <constraints nullable="false"/>
+            </column>
+            
+            <column name="birthday" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="money" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_blocked" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            
+            <column name="role_id" type="bigint">
+                <constraints foreignKeyName="fk_users_role" references="role(id)"/>
+            </column>
+            
+            <column name="privilege_id" type="bigint">
+                <constraints foreignKeyName="fk_users_privileges" references="privilege(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
