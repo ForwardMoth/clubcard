@@ -1,6 +1,7 @@
 package com.example.clubcard.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,7 +19,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "email", unique = true, length = 100, nullable = false)
@@ -27,9 +28,35 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "first_name", nullable = false, length = 50)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 50)
+    private String lastName;
+
+    @Column(name = "second_name", length = 50)
+    private String secondName;
+
+    @Column(name = "phone_number", nullable = false, length = 11)
+    private String phoneNumber;
+
+    @Column(name = "birthday", nullable = false)
+    private String birthday;
+
+    @Column(name = "money", nullable = false)
+    @Min(0)
+    private Integer money;
+
     @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
+
+    @ManyToOne
+    @JoinColumn(name ="privilege_id", referencedColumnName = "id")
+    private Privilege privilege;
+
+    @OneToOne(mappedBy = "user")
+    private PlasticCard plasticCard;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

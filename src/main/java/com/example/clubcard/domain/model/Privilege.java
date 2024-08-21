@@ -1,14 +1,15 @@
 package com.example.clubcard.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 @Entity
-@Table(name="role")
-public class Role {
+@Table(name = "privilege")
+public class Privilege {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -17,6 +18,13 @@ public class Role {
     @Column(name="name", unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "role")
+    @Column(name="description", nullable = false)
+    private String description;
+
+    @Column(name="price", nullable = false)
+    @Min(0)
+    private Integer price;
+
+    @OneToMany(mappedBy = "privilege")
     private List<User> users;
 }
