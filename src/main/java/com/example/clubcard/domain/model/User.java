@@ -37,10 +37,10 @@ public class User implements UserDetails {
     @Column(name = "second_name", length = 50)
     private String secondName;
 
-    @Column(name = "phone_number", nullable = false, length = 11)
+    @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
-    @Column(name = "birthday", nullable = false)
+    @Column(name = "birthday", nullable = false, length = 10)
     private String birthday;
 
     @Column(name = "money", nullable = false)

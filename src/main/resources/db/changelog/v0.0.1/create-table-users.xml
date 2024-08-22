@@ -27,7 +27,7 @@
 
             <column name="second_name" type="varchar(50)"/>
             
-            <column name="phone_number" type="varchar(11)">
+            <column name="phone_number" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
             
