@@ -1,13 +1,17 @@
 package com.example.clubcard.service.impl;
 
+import com.example.clubcard.domain.dto.response.UserProfileResponse;
 import com.example.clubcard.domain.enums.PrivilegeEnum;
 import com.example.clubcard.domain.enums.RoleEnum;
 import com.example.clubcard.domain.entity.User;
+import com.example.clubcard.domain.mapper.UserMapper;
 import com.example.clubcard.exception.CustomException;
+import com.example.clubcard.exception.message.AuthErrorMessage;
 import com.example.clubcard.exception.message.UserErrorMessage;
 import com.example.clubcard.repository.PrivilegeRepository;
 import com.example.clubcard.repository.RoleRepository;
 import com.example.clubcard.repository.UserRepository;
+import com.example.clubcard.service.JwtService;
 import com.example.clubcard.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +29,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PrivilegeRepository privilegeRepository;
+    private final UserMapper userMapper;
+    private final JwtService jwtService;
 
     public User create(User user){
         user.setMoney(0);
@@ -53,4 +59,19 @@ public class UserServiceImpl implements UserService {
                 user.getUsername(), user.getPassword(), user.getAuthorities()
         );
     }
+
+    public User findById(Long id){
+        return userRepository.findById(id).orElseThrow(
+                () -> new CustomException(UserErrorMessage.USER_IS_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
+        );
+    }
+
+    public UserProfileResponse getProfile(Long id, String auth){
+        if (!jwtService.isAccess(id, auth)){
+            throw new CustomException(AuthErrorMessage.NO_ACCESS.getMsg(), AuthErrorMessage.NO_ACCESS.getStatus());
+        }
+        User user = findById(id);
+        return userMapper.toProfileResponse(user);
+    }
 }
+

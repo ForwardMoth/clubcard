@@ -1,5 +1,6 @@
 package com.example.clubcard.service;
 
+import com.example.clubcard.domain.dto.response.UserProfileResponse;
 import com.example.clubcard.domain.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -11,4 +12,8 @@ public interface UserService extends UserDetailsService {
     Optional<User> getByEmail(String email);
 
     Boolean isExisted(String email);
+
+    User findById(Long id);
+
+    UserProfileResponse getProfile(Long id, String auth);
 }

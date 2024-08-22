@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum AuthErrorMessage {
-    NO_SUCH_USERNAME_OR_PWD("Incorrect email or password", HttpStatus.UNAUTHORIZED);
+    NO_SUCH_USERNAME_OR_PWD("Incorrect email or password", HttpStatus.UNAUTHORIZED),
+    NO_ACCESS("Access denied", HttpStatus.FORBIDDEN);
 
     private final String msg;
     private final HttpStatus status;
