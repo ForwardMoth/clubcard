@@ -33,7 +33,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-        String token = getToken(request);
+        String authHeader = request.getHeader(HEADER_NAME);
+        String token = getToken(authHeader);
         String email = getEmail(token);
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null){
@@ -49,8 +50,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String getToken(HttpServletRequest request){
-        String authHeader = request.getHeader(HEADER_NAME);
+    public String getToken(String authHeader){
         if(StringUtils.hasText(authHeader) && authHeader.startsWith(BEARER_PREFIX))
             return authHeader.substring(BEARER_PREFIX.length());
         return null;
