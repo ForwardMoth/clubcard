@@ -4,13 +4,16 @@ import com.example.clubcard.domain.dto.request.SignInRequest;
 import com.example.clubcard.domain.dto.request.SignUpRequest;
 import com.example.clubcard.domain.dto.response.JwtAuthResponse;
 import com.example.clubcard.domain.entity.User;
+import com.example.clubcard.domain.mapper.UserMapper;
 import com.example.clubcard.exception.CustomException;
 import com.example.clubcard.exception.message.AuthErrorMessage;
 import com.example.clubcard.exception.message.UserErrorMessage;
 import com.example.clubcard.jwt.JwtCore;
 import com.example.clubcard.service.AuthService;
 import com.example.clubcard.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,13 +24,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final JwtCore jwtCore;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final UserMapper userMapper;
 
     public JwtAuthResponse signUp(SignUpRequest request){
         String password = request.getPassword();
@@ -40,7 +44,8 @@ public class AuthServiceImpl implements AuthService {
             throw new CustomException(UserErrorMessage.EMAIL_EXISTS.getDescription(), HttpStatus.BAD_REQUEST);
         }
 
-        User user = User.builder().email(email).password(passwordEncoder.encode(password)).build();
+        User user = userMapper.toEntity(request);
+        user.setPassword(passwordEncoder.encode(password));
 
         userService.create(user);
         String jwt = jwtCore.generateToken(user);

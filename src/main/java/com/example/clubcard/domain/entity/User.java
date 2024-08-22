@@ -43,7 +43,7 @@ public class User implements UserDetails {
     @Column(name = "birthday", nullable = false, length = 10)
     private String birthday;
 
-    @Column(name = "money", nullable = false)
+    @Column(name = "money", nullable = false, columnDefinition = "0")
     @Min(0)
     private Integer money;
 
