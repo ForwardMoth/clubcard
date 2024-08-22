@@ -1,6 +1,6 @@
 package com.example.clubcard.service;
 
-import com.example.clubcard.domain.model.User;
+import com.example.clubcard.domain.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;

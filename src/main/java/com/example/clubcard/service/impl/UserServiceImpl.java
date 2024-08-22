@@ -1,7 +1,7 @@
 package com.example.clubcard.service.impl;
 
 import com.example.clubcard.domain.enums.RoleEnum;
-import com.example.clubcard.domain.model.User;
+import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.repository.RoleRepository;
 import com.example.clubcard.repository.UserRepository;
 import com.example.clubcard.service.UserService;

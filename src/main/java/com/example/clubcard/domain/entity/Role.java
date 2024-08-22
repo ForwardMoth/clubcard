@@ -1,4 +1,4 @@
-package com.example.clubcard.domain.model;
+package com.example.clubcard.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,8 +7,8 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name="card_type")
-public class CardType {
+@Table(name="role")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -17,9 +17,6 @@ public class CardType {
     @Column(name="name", unique = true, nullable = false)
     private String name;
 
-    @Column(name="description", nullable = false)
-    private String description;
-
-    @OneToMany(mappedBy = "cardType")
-    private List<PlasticCard> plasticCards;
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
 }

@@ -1,4 +1,4 @@
-package com.example.clubcard.domain.model;
+package com.example.clubcard.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

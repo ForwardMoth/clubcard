@@ -1,6 +1,6 @@
 package com.example.clubcard.repository;
 
-import com.example.clubcard.domain.model.Role;
+import com.example.clubcard.domain.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
