@@ -40,12 +40,13 @@ public class SignUpRequest {
     @Size(max=50, message = "Length of second name must be no more than 50 symbols")
     private String secondName;
 
+    @Schema(description = "Birthday", example = "15.08.1999")
+    @Size(max = 10, message = "Length of birthday must be no more than 11 symbols")
+    @NotBlank(message = "Birthday can't be empty")
+    private String birthday;
+
     @Schema(description = "Phone number", example = "81995414801")
     @Size(min=3,max=20, message = "Phone number must contain from 3 to 20 symbols")
     @NotBlank(message = "Phone number can't be empty")
     private String phoneNumber;
-
-    @Schema(description = "Birthday", example = "15.08.1999")
-    @Size(max = 10, message = "Length of birthday must be no more than 11 symbols")
-    private String birthday;
 }
