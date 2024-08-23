@@ -4,4 +4,6 @@ import com.example.clubcard.domain.entity.Privilege;
 
 public interface PrivilegeService {
     Privilege getByName(String name);
+
+    Privilege findById(Long id);
 }

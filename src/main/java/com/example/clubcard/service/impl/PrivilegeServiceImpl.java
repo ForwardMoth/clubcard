@@ -22,4 +22,10 @@ public class PrivilegeServiceImpl implements PrivilegeService {
                 () -> new CustomException(UserErrorMessage.PRIVILEGE_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
         );
     }
+
+    public Privilege findById(Long id){
+        return privilegeRepository.findById(id).orElseThrow(
+                () -> new CustomException(UserErrorMessage.PRIVILEGE_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
+        );
+    }
 }
