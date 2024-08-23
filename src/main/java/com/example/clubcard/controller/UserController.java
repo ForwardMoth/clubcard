@@ -35,5 +35,25 @@ public class UserController implements UserApi {
     public ResponseEntity<UserResponse> getUser(@PathVariable Long id){
         return ResponseEntity.ok(userService.getUser(id));
     }
+
+    @PostMapping("/{id}/update/profile")
+    public ResponseEntity<?> updateProfile(@PathVariable Long id){
+        return ResponseEntity.ok("123");
+    }
+
+    @PostMapping("/{id}/update/blocked")
+    public ResponseEntity<?> updateBlockStatus(@PathVariable Long id){
+        return ResponseEntity.ok("123");
+    }
+
+    @PostMapping("/{id}/update/privilege")
+    public ResponseEntity<?> updatePrivilege(@PathVariable Long id){
+        return ResponseEntity.ok("123");
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id){
+        return ResponseEntity.ok("123");
+    }
 }
 
