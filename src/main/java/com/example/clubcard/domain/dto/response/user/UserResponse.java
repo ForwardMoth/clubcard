@@ -8,6 +8,9 @@ import lombok.Data;
 @Data
 @Schema(description = "Full user response information")
 public class UserResponse {
+    @Schema(description = "User id", example = "1")
+    private Long userId;
+
     @Schema(description = "First name", example = "Ivan")
     private String firstName;
 

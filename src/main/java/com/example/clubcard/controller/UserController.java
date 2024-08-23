@@ -39,8 +39,8 @@ public class UserController implements UserApi {
     }
 
     @PostMapping("/{id}/update/profile")
-    public ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody UserUpdateRequest request){
-        return ResponseEntity.ok("123");
+    public ResponseEntity<UserResponse> updateProfile(@PathVariable Long id, @RequestBody UserUpdateRequest request){
+        return ResponseEntity.ok(userService.updateProfile(id, request));
     }
 
     @PostMapping("/{id}/update/blocked")

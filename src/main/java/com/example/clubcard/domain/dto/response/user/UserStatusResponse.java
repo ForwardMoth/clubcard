@@ -9,6 +9,9 @@ import lombok.Data;
 @Schema(description = "User status response")
 @AllArgsConstructor
 public class UserStatusResponse {
+    @Schema(description = "User id", example = "1")
+    private Long userId;
+
     @Schema(name = "Block status for user", example = "false")
     private Boolean isBlocked;
 

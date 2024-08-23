@@ -8,6 +8,9 @@ import lombok.Data;
 @AllArgsConstructor
 @Schema(description = "User balance response")
 public class UserBalanceResponse {
+    @Schema(description = "User id", example = "1")
+    private Long userId;
+
     @Schema(description = "Money", example = "100")
     private Integer money;
 }

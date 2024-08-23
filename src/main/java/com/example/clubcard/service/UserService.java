@@ -1,5 +1,6 @@
 package com.example.clubcard.service;
 
+import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
 import com.example.clubcard.domain.dto.response.user.UserResponse;
@@ -25,4 +26,6 @@ public interface UserService extends UserDetailsService {
     UserStatusResponse getStatus(Long id);
 
     UserResponse getUser(Long id);
+
+    UserResponse updateProfile(Long id, UserUpdateRequest request);
 }

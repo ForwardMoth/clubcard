@@ -3,7 +3,9 @@ package com.example.clubcard.domain.dto.request.user;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
+@Data
 @Schema(description = "User profile update request")
 public class UserUpdateRequest {
     @Schema(description = "First name", example = "Ivan")

@@ -6,5 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface PrivilegeMapper {
-    PrivilegeResponse toResponse(Privilege privilege);
+    PrivilegeResponse toDto(Privilege privilege);
+
+    Privilege toEntity(PrivilegeResponse privilegeResponse);
 }
