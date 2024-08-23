@@ -8,22 +8,22 @@ import lombok.Data;
 @Data
 @Schema(description = "Full user response information")
 public class UserResponse {
-    @Schema(description = "User id", example = "1")
+    @Schema(description = "UserId", example = "1")
     private Long userId;
 
-    @Schema(description = "First name", example = "Ivan")
+    @Schema(description = "firstName", example = "Ivan")
     private String firstName;
 
-    @Schema(description = "Last name", example = "Ivanov")
+    @Schema(description = "lastName", example = "Ivanov")
     private String lastName;
 
-    @Schema(description = "Second name", example = "Ivanovich")
+    @Schema(description = "SecondName", example = "Ivanovich")
     private String secondName;
 
     @Schema(description = "Birthday", example = "15.08.1999")
     private String birthday;
 
-    @Schema(description = "Phone number", example = "81995414801")
+    @Schema(description = "PhoneNumber", example = "81995414801")
     private String phoneNumber;
 
     @Schema(description = "Email", example = "user@mail.com")
@@ -32,9 +32,9 @@ public class UserResponse {
     @Schema(description = "Money", example = "100")
     private Integer money;
 
-    @Schema(name = "Block status for user", example = "false")
+    @Schema(name = "isBlocked", example = "false")
     private Boolean isBlocked;
 
-    @Schema(name = "User privilege")
+    @Schema(name = "Privilege")
     private PrivilegeResponse privilegeResponse;
 }

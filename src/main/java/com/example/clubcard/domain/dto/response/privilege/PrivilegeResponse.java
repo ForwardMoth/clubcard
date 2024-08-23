@@ -6,12 +6,12 @@ import lombok.Data;
 @Data
 @Schema(description = "Privilege response")
 public class PrivilegeResponse {
-    @Schema(name = "Privilege id", example = "1")
+    @Schema(name = "Id", example = "1")
     private Long id;
 
-    @Schema(name = "Privilege name", example = "standard")
+    @Schema(name = "Name", example = "standard")
     private String name;
 
-    @Schema(name = "Privilege description", example = "standard privilege for all users")
+    @Schema(name = "Description", example = "standard privilege for all users")
     private String description;
 }
