@@ -16,5 +16,7 @@ public interface UserService extends UserDetailsService {
 
     User findById(Long id);
 
-    UserProfileResponse getProfile(Long id, String auth);
+    UserProfileResponse getProfile(Long id);
+
+    UserBalanceResponse getBalance(Long id);
 }

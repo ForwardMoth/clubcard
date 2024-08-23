@@ -5,10 +5,8 @@ import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
 import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.domain.enums.PrivilegeEnum;
 import com.example.clubcard.domain.enums.RoleEnum;
-import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.domain.mapper.UserMapper;
 import com.example.clubcard.exception.CustomException;
-import com.example.clubcard.exception.message.AuthErrorMessage;
 import com.example.clubcard.exception.message.UserErrorMessage;
 import com.example.clubcard.repository.PrivilegeRepository;
 import com.example.clubcard.repository.RoleRepository;
@@ -69,12 +67,22 @@ public class UserServiceImpl implements UserService {
         );
     }
 
-    public UserProfileResponse getProfile(Long id, String auth){
-        if (!jwtService.isAccess(id, auth)){
-            throw new CustomException(AuthErrorMessage.NO_ACCESS.getMsg(), AuthErrorMessage.NO_ACCESS.getStatus());
-        }
+    public UserProfileResponse getProfile(Long id){
         User user = findById(id);
         return userMapper.toProfileResponse(user);
     }
+
+    public UserBalanceResponse getBalance(Long id){
+        User user = findById(id);
+        return new UserBalanceResponse(user.getMoney());
+    }
+
+//    public User getUser(Long id, String auth){
+//        if (!jwtService.isAccess(id, auth)){
+//            throw new CustomException(AuthErrorMessage.NO_ACCESS.getMsg(), AuthErrorMessage.NO_ACCESS.getStatus());
+//        }
+//        User user = findById(id);
+//        return user;
+//    }
 }
 

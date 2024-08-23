@@ -9,10 +9,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 @Tag(name = "User's endpoint")
 public interface UserApi {
@@ -35,14 +33,42 @@ public interface UserApi {
                     ) }
             ),
             @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
+                    responseCode = "404",
+                    description = "Not Found",
                     content = { @Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
                     ) }
             )
     })
-    ResponseEntity<UserProfileResponse> getProfile(@PathVariable Long id,
-                                                   @RequestHeader(HttpHeaders.AUTHORIZATION) String auth);
+    ResponseEntity<UserProfileResponse> getProfile(@PathVariable Long id);
+
+    @Operation(summary = "User balance")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success getting user balance",
+                    content = { @Content(
+                            schema = @Schema(implementation = UserBalanceResponse.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            )
+    })
+    ResponseEntity<UserBalanceResponse> getBalance(@PathVariable Long id);
 }
