@@ -1,5 +1,7 @@
 package com.example.clubcard.controller.api;
 
+import com.example.clubcard.domain.dto.request.privilege.PrivilegeRequest;
+import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
 import com.example.clubcard.domain.dto.response.user.UserResponse;
@@ -11,8 +13,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "User's endpoint")
 public interface UserApi {
@@ -131,4 +135,131 @@ public interface UserApi {
             )
     })
     ResponseEntity<UserResponse> getUser(@PathVariable Long id);
+
+
+    @Operation(summary = "Update personal user information")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success updating user information",
+                    content = { @Content(
+                            schema = @Schema(implementation = UserResponse.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            )
+    })
+    ResponseEntity<UserResponse> updateProfile(@PathVariable Long id,
+                                               @RequestBody @Valid UserUpdateRequest request);
+
+    @Operation(summary = "Update user block status")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success updating block status of user",
+                    content = { @Content(
+                            schema = @Schema(implementation = UserStatusResponse.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            )
+    })
+    ResponseEntity<UserStatusResponse> updateBlockStatus(@PathVariable Long id);
+
+    @Operation(summary = "Update user privilege")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success updating user privilege",
+                    content = { @Content(
+                            schema = @Schema(implementation = UserResponse.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            )
+    })
+    ResponseEntity<UserResponse> updatePrivilege(@PathVariable Long id,
+                                                 @RequestBody @Valid PrivilegeRequest request);
+
+    @Operation(summary = "Delete user")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "No content",
+                    content = { @Content(
+                            schema = @Schema(implementation = Void.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            )
+    })
+    ResponseEntity<Void> deleteUser(@PathVariable Long id);
 }
