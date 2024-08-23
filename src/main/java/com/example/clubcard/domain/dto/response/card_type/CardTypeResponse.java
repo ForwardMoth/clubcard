@@ -1,11 +1,11 @@
-package com.example.clubcard.domain.dto.response.privilege;
+package com.example.clubcard.domain.dto.response.card_type;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-@Schema(description = "Privilege response")
-public class PrivilegeResponse {
+@Schema(description = "Card type response")
+public class CardTypeResponse {
     @Schema(name = "id", example = "1")
     private Long id;
 
@@ -14,7 +14,4 @@ public class PrivilegeResponse {
 
     @Schema(name = "description", example = "standard privilege for all users")
     private String description;
-
-    @Schema(name = "Price", example = "200")
-    private Integer price;
 }
