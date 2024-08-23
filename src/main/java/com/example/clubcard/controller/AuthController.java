@@ -20,12 +20,12 @@ public class AuthController implements AuthApi {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<JwtAuthResponse> signUp(@RequestBody @Valid SignUpRequest request){
+    public ResponseEntity<JwtAuthResponse> signUp(@RequestBody @Valid SignUpRequest request) {
         return ResponseEntity.ok(authService.signUp(request));
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<JwtAuthResponse> signIn(@RequestBody @Valid SignInRequest request){
+    public ResponseEntity<JwtAuthResponse> signIn(@RequestBody @Valid SignInRequest request) {
         return ResponseEntity.ok(authService.signIn(request));
     }
 }
