@@ -1,6 +1,6 @@
 package com.example.clubcard.service;
 
-import com.example.clubcard.domain.dto.request.privilege.PrivilegeRequest;
+import com.example.clubcard.domain.dto.request.privilege.PrivilegeIdRequest;
 import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
@@ -32,7 +32,7 @@ public interface UserService extends UserDetailsService {
 
     UserStatusResponse updateStatus(Long id);
 
-    UserResponse updatePrivilege(Long id, PrivilegeRequest request);
+    UserResponse updatePrivilege(Long id, PrivilegeIdRequest request);
 
     void deleteUser(Long id);
 }

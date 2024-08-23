@@ -1,6 +1,6 @@
 package com.example.clubcard.service.impl;
 
-import com.example.clubcard.domain.dto.request.privilege.PrivilegeRequest;
+import com.example.clubcard.domain.dto.request.privilege.PrivilegeIdRequest;
 import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.toStatusResponse(user);
     }
 
-    public UserResponse updatePrivilege(Long id, PrivilegeRequest request){
+    public UserResponse updatePrivilege(Long id, PrivilegeIdRequest request){
         Privilege privilege = privilegeService.findById(request.getPrivilegeId());
         User user = findById(id);
         Integer userBalance = user.getMoney(), privilegePrice = privilege.getPrice();

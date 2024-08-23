@@ -1,6 +1,6 @@
 package com.example.clubcard.controller.api;
 
-import com.example.clubcard.domain.dto.request.privilege.PrivilegeRequest;
+import com.example.clubcard.domain.dto.request.privilege.PrivilegeIdRequest;
 import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
@@ -232,7 +232,7 @@ public interface UserApi {
             )
     })
     ResponseEntity<UserResponse> updatePrivilege(@PathVariable Long id,
-                                                 @RequestBody @Valid PrivilegeRequest request);
+                                                 @RequestBody @Valid PrivilegeIdRequest request);
 
     @Operation(summary = "Delete user")
     @ApiResponses({

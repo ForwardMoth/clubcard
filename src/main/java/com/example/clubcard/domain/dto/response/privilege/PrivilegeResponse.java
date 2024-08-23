@@ -14,4 +14,7 @@ public class PrivilegeResponse {
 
     @Schema(name = "Description", example = "standard privilege for all users")
     private String description;
+
+    @Schema(name = "Price", example = "200")
+    private Integer price;
 }

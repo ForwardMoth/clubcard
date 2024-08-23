@@ -1,7 +1,7 @@
 package com.example.clubcard.controller;
 
 import com.example.clubcard.controller.api.UserApi;
-import com.example.clubcard.domain.dto.request.privilege.PrivilegeRequest;
+import com.example.clubcard.domain.dto.request.privilege.PrivilegeIdRequest;
 import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
@@ -53,7 +53,7 @@ public class UserController implements UserApi {
 
     @PatchMapping("/{id}/update/privilege")
     public ResponseEntity<UserResponse> updatePrivilege(@PathVariable Long id,
-                                             @RequestBody @Valid PrivilegeRequest request){
+                                             @RequestBody @Valid PrivilegeIdRequest request){
         return ResponseEntity.ok(userService.updatePrivilege(id, request));
     }
 
