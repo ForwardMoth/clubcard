@@ -101,6 +101,14 @@ public class UserServiceImpl implements UserService {
     public UserResponse updatePrivilege(Long id, PrivilegeRequest request){
         Privilege privilege = privilegeService.findById(request.getPrivilegeId());
         User user = findById(id);
+        Integer userBalance = user.getMoney(), privilegePrice = privilege.getPrice();
+
+        if (userBalance < privilegePrice){
+            throw new CustomException(UserErrorMessage.NOT_ENOUGH_MONEY.getDescription(),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        user.setMoney(userBalance - privilegePrice);
         user.setPrivilege(privilege);
         userRepository.save(user);
         return userMapper.toDto(user);
