@@ -1,6 +1,8 @@
 package com.example.clubcard.controller;
 
 import com.example.clubcard.controller.api.UserApi;
+import com.example.clubcard.domain.dto.request.privilege.PrivilegeRequest;
+import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
 import com.example.clubcard.domain.dto.response.user.UserResponse;
@@ -37,7 +39,7 @@ public class UserController implements UserApi {
     }
 
     @PostMapping("/{id}/update/profile")
-    public ResponseEntity<?> updateProfile(@PathVariable Long id){
+    public ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody UserUpdateRequest request){
         return ResponseEntity.ok("123");
     }
 
@@ -47,7 +49,7 @@ public class UserController implements UserApi {
     }
 
     @PostMapping("/{id}/update/privilege")
-    public ResponseEntity<?> updatePrivilege(@PathVariable Long id){
+    public ResponseEntity<?> updatePrivilege(@PathVariable Long id, @RequestBody PrivilegeRequest request){
         return ResponseEntity.ok("123");
     }
 
