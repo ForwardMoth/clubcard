@@ -19,7 +19,7 @@ import java.util.List;
 @Tag(name = "Privilege endpoints")
 public interface PrivilegeApi {
 
-    @Operation(summary = "All privileges")
+    @Operation(summary = "All privileges (No auth)")
     @ApiResponse(
             responseCode = "200",
             description = "List with all privileges",
@@ -30,7 +30,7 @@ public interface PrivilegeApi {
     )
     ResponseEntity<List<PrivilegeResponse>> getAllPrivileges();
 
-    @Operation(summary = "Privilege")
+    @Operation(summary = "Privilege (No auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
