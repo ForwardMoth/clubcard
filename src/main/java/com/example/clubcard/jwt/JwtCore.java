@@ -1,5 +1,6 @@
 package com.example.clubcard.jwt;
 
+import com.example.clubcard.domain.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -36,13 +37,14 @@ public class JwtCore {
         return extractAllClaims(token).get("role", List.class);
     }
 
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(User user){
         Map<String, Object> claims = new HashMap<>();
-        List<String> role = userDetails.getAuthorities().stream()
+        List<String> role = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
         claims.put("role", role);
-        return generateToken(claims, userDetails);
+        claims.put("user_id", user.getId());
+        return generateToken(claims, user);
     }
 
     private String generateToken(Map<String, Object> claims, UserDetails userDetails){

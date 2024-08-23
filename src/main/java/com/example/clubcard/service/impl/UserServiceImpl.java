@@ -24,8 +24,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -45,8 +43,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> getByEmail(String email){
-        return userRepository.findByEmail(email);
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with '%s' isn't found", email)));
     }
 
     public Boolean isExisted(String email){
@@ -55,8 +54,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = getByEmail(username)
-            .orElseThrow(() -> new UsernameNotFoundException(String.format("User with '%s' isn't found", username)));
+        User user = findByEmail(username);
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(), user.getPassword(), user.getAuthorities()
         );
