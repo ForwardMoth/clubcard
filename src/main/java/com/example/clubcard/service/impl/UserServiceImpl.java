@@ -1,10 +1,12 @@
 package com.example.clubcard.service.impl;
 
+import com.example.clubcard.domain.dto.request.privilege.PrivilegeRequest;
 import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
 import com.example.clubcard.domain.dto.response.user.UserResponse;
 import com.example.clubcard.domain.dto.response.user.UserStatusResponse;
+import com.example.clubcard.domain.entity.Privilege;
 import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.domain.enums.PrivilegeEnum;
 import com.example.clubcard.domain.enums.RoleEnum;
@@ -94,6 +96,14 @@ public class UserServiceImpl implements UserService {
         user.setIsBlocked(!user.getIsBlocked());
         userRepository.save(user);
         return userMapper.toStatusResponse(user);
+    }
+
+    public UserResponse updatePrivilege(Long id, PrivilegeRequest request){
+        Privilege privilege = privilegeService.findById(request.getPrivilegeId());
+        User user = findById(id);
+        user.setPrivilege(privilege);
+        userRepository.save(user);
+        return userMapper.toDto(user);
     }
 }
 

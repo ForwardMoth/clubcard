@@ -8,6 +8,7 @@ import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
 import com.example.clubcard.domain.dto.response.user.UserResponse;
 import com.example.clubcard.domain.dto.response.user.UserStatusResponse;
 import com.example.clubcard.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,8 @@ public class UserController implements UserApi {
     }
 
     @PostMapping("/{id}/update/profile")
-    public ResponseEntity<UserResponse> updateProfile(@PathVariable Long id, @RequestBody UserUpdateRequest request){
+    public ResponseEntity<UserResponse> updateProfile(@PathVariable Long id,
+                                                      @RequestBody @Valid UserUpdateRequest request){
         return ResponseEntity.ok(userService.updateProfile(id, request));
     }
 
@@ -49,8 +51,9 @@ public class UserController implements UserApi {
     }
 
     @PostMapping("/{id}/update/privilege")
-    public ResponseEntity<?> updatePrivilege(@PathVariable Long id, @RequestBody PrivilegeRequest request){
-        return ResponseEntity.ok("123");
+    public ResponseEntity<?> updatePrivilege(@PathVariable Long id,
+                                             @RequestBody @Valid PrivilegeRequest request){
+        return ResponseEntity.ok(userService.updatePrivilege(id, request));
     }
 
     @DeleteMapping("/{id}/delete")
