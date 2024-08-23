@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "User endpoints")
 public interface UserApi {
-    @Operation(summary = "Personal information about user")
+    @Operation(summary = "Personal information about user (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -49,7 +49,7 @@ public interface UserApi {
     })
     ResponseEntity<UserProfileResponse> getProfile(@PathVariable Long id);
 
-    @Operation(summary = "User balance")
+    @Operation(summary = "User balance (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -78,7 +78,7 @@ public interface UserApi {
     })
     ResponseEntity<UserBalanceResponse> getBalance(@PathVariable Long id);
 
-    @Operation(summary = "User status and privilege")
+    @Operation(summary = "User status and privilege (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -107,7 +107,7 @@ public interface UserApi {
     })
     public ResponseEntity<UserStatusResponse> getStatus(@PathVariable Long id);
 
-    @Operation(summary = "Full user information")
+    @Operation(summary = "Full user information (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -137,7 +137,7 @@ public interface UserApi {
     ResponseEntity<UserResponse> getUser(@PathVariable Long id);
 
 
-    @Operation(summary = "Update personal user information")
+    @Operation(summary = "Update personal user information (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -167,7 +167,7 @@ public interface UserApi {
     ResponseEntity<UserResponse> updateProfile(@PathVariable Long id,
                                                @RequestBody @Valid UserUpdateRequest request);
 
-    @Operation(summary = "Update user block status")
+    @Operation(summary = "Update user block status (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -196,7 +196,7 @@ public interface UserApi {
     })
     ResponseEntity<UserStatusResponse> updateBlockStatus(@PathVariable Long id);
 
-    @Operation(summary = "Update user privilege")
+    @Operation(summary = "Update user privilege (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -234,7 +234,7 @@ public interface UserApi {
     ResponseEntity<UserResponse> updatePrivilege(@PathVariable Long id,
                                                  @RequestBody @Valid PrivilegeIdRequest request);
 
-    @Operation(summary = "Delete user")
+    @Operation(summary = "Delete user (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "204",
