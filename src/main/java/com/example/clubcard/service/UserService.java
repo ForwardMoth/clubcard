@@ -33,4 +33,6 @@ public interface UserService extends UserDetailsService {
     UserStatusResponse updateStatus(Long id);
 
     UserResponse updatePrivilege(Long id, PrivilegeRequest request);
+
+    void deleteUser(Long id);
 }

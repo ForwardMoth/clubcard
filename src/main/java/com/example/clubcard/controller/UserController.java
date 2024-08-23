@@ -10,6 +10,7 @@ import com.example.clubcard.domain.dto.response.user.UserStatusResponse;
 import com.example.clubcard.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,14 +52,15 @@ public class UserController implements UserApi {
     }
 
     @PostMapping("/{id}/update/privilege")
-    public ResponseEntity<?> updatePrivilege(@PathVariable Long id,
+    public ResponseEntity<UserResponse> updatePrivilege(@PathVariable Long id,
                                              @RequestBody @Valid PrivilegeRequest request){
         return ResponseEntity.ok(userService.updatePrivilege(id, request));
     }
 
     @DeleteMapping("/{id}/delete")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id){
-        return ResponseEntity.ok("123");
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+        userService.deleteUser(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
 

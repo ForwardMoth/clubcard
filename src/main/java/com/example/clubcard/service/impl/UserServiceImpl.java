@@ -105,5 +105,9 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         return userMapper.toDto(user);
     }
+
+    public void deleteUser(Long id){
+        userRepository.delete(findById(id));
+    }
 }
 
