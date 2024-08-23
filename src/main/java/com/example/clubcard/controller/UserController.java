@@ -3,6 +3,7 @@ package com.example.clubcard.controller;
 import com.example.clubcard.controller.api.UserApi;
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
+import com.example.clubcard.domain.dto.response.user.UserResponse;
 import com.example.clubcard.domain.dto.response.user.UserStatusResponse;
 import com.example.clubcard.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +32,8 @@ public class UserController implements UserApi {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUser(@PathVariable Long id,
-                                        @RequestHeader String auth){
-        return ResponseEntity.ok("123");
+    public ResponseEntity<UserResponse> getUser(@PathVariable Long id){
+        return ResponseEntity.ok(userService.getUser(id));
     }
 }
 

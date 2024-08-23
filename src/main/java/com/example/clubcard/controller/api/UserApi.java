@@ -2,6 +2,7 @@ package com.example.clubcard.controller.api;
 
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
+import com.example.clubcard.domain.dto.response.user.UserResponse;
 import com.example.clubcard.domain.dto.response.user.UserStatusResponse;
 import com.example.clubcard.exception.message.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
@@ -101,4 +102,33 @@ public interface UserApi {
             )
     })
     public ResponseEntity<UserStatusResponse> getStatus(@PathVariable Long id);
+
+    @Operation(summary = "Full user information")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success getting user information",
+                    content = { @Content(
+                            schema = @Schema(implementation = UserResponse.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            )
+    })
+    ResponseEntity<UserResponse> getUser(@PathVariable Long id);
 }

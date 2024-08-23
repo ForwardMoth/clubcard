@@ -1,7 +1,9 @@
 package com.example.clubcard.service.impl;
 
+import com.example.clubcard.domain.dto.response.privilege.PrivilegeResponse;
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
+import com.example.clubcard.domain.dto.response.user.UserResponse;
 import com.example.clubcard.domain.dto.response.user.UserStatusResponse;
 import com.example.clubcard.domain.entity.Privilege;
 import com.example.clubcard.domain.entity.User;
@@ -10,6 +12,7 @@ import com.example.clubcard.domain.enums.RoleEnum;
 import com.example.clubcard.domain.mapper.PrivilegeMapper;
 import com.example.clubcard.domain.mapper.UserMapper;
 import com.example.clubcard.exception.CustomException;
+import com.example.clubcard.exception.message.AuthErrorMessage;
 import com.example.clubcard.exception.message.UserErrorMessage;
 import com.example.clubcard.repository.RoleRepository;
 import com.example.clubcard.repository.UserRepository;
@@ -88,12 +91,13 @@ public class UserServiceImpl implements UserService {
         );
     }
 
-//    public User getUser(Long id, String auth){
-//        if (!jwtService.isAccess(id, auth)){
-//            throw new CustomException(AuthErrorMessage.NO_ACCESS.getMsg(), AuthErrorMessage.NO_ACCESS.getStatus());
-//        }
-//        User user = findById(id);
-//        return user;
-//    }
+    public UserResponse getUser(Long id){
+        User user = findById(id);
+        Privilege privilege = user.getPrivilege();
+        PrivilegeResponse privilegeResponse = privilegeMapper.toResponse(privilege);
+        UserResponse userResponse = userMapper.toDto(user);
+        userResponse.setPrivilegeResponse(privilegeResponse);
+        return userResponse;
+    }
 }
 
