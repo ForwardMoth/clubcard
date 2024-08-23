@@ -21,14 +21,13 @@ public class AdminController implements AdminApi {
     }
 
     @PatchMapping("/privilege/{id}/update")
-    public ResponseEntity<?> updatePrivilege(@PathVariable Long id, @RequestBody @Valid PrivilegeRequest request){
-        return ResponseEntity.ok("1234");
+    public ResponseEntity<PrivilegeResponse> updatePrivilege(@PathVariable Long id,
+                                                             @RequestBody @Valid PrivilegeRequest request){
+        return ResponseEntity.ok(privilegeService.updatePrivilege(id, request));
     }
 
     @DeleteMapping("/privilege/{id}/delete")
     public ResponseEntity<?> deletePrivilege(@PathVariable Long id){
         return ResponseEntity.ok("1234");
     }
-
-
 }

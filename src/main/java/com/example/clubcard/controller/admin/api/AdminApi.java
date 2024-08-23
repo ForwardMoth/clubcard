@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "Admin's endpoint")
@@ -21,7 +22,7 @@ public interface AdminApi {
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
-                    description = "Success hello message",
+                    description = "Success creating privilege",
                     content = { @Content(
                             schema = @Schema(implementation = PrivilegeResponse.class),
                             mediaType = "application/json"
@@ -53,4 +54,42 @@ public interface AdminApi {
             )
     })
     ResponseEntity<PrivilegeResponse> createPrivilege(@RequestBody @Valid PrivilegeRequest request);
+
+    @Operation(summary = "Update privilege")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success updating privilege",
+                    content = { @Content(
+                            schema = @Schema(implementation = PrivilegeResponse.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Forbidden",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            )
+    })
+    ResponseEntity<PrivilegeResponse> updatePrivilege(@PathVariable Long id,
+                                                      @RequestBody @Valid PrivilegeRequest request);
 }

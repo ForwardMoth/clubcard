@@ -16,4 +16,6 @@ public interface PrivilegeService {
     PrivilegeResponse getPrivilege(Long id);
 
     PrivilegeResponse createPrivilege(PrivilegeRequest request);
+
+    PrivilegeResponse updatePrivilege(Long id, PrivilegeRequest request);
 }

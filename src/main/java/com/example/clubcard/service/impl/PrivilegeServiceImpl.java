@@ -53,4 +53,11 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         privilegeRepository.save(privilege);
         return privilegeMapper.toDto(privilege);
     }
+
+    public PrivilegeResponse updatePrivilege(Long id, PrivilegeRequest request){
+        Privilege privilege = findById(id);
+        privilegeMapper.updatePrivilegeFromDto(request, privilege);
+        privilegeRepository.save(privilege);
+        return privilegeMapper.toDto(privilege);
+    }
 }
