@@ -92,4 +92,42 @@ public interface AdminApi {
     })
     ResponseEntity<PrivilegeResponse> updatePrivilege(@PathVariable Long id,
                                                       @RequestBody @Valid PrivilegeRequest request);
+
+
+    @Operation(summary = "Delete privilege")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "No content",
+                    content = { @Content(
+                            schema = @Schema(implementation = Void.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Forbidden",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            )
+    })
+    ResponseEntity<Void> deletePrivilege(@PathVariable Long id);
 }

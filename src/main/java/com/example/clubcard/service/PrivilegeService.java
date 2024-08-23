@@ -18,4 +18,6 @@ public interface PrivilegeService {
     PrivilegeResponse createPrivilege(PrivilegeRequest request);
 
     PrivilegeResponse updatePrivilege(Long id, PrivilegeRequest request);
+
+    void deletePrivilege(Long id);
 }

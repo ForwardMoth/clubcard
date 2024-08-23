@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum PrivilegeErrorMessage {
     PRIVILEGE_NOT_FOUND("Privilege isn't found", HttpStatus.NOT_FOUND),
-    PRIVILEGE_EXISTS("Privilege with such name is exists", HttpStatus.BAD_REQUEST);
+    PRIVILEGE_EXISTS("Privilege with such name is exists", HttpStatus.BAD_REQUEST),
+    CANT_DELETE_PRIVILEGE("Some users had this privilege!", HttpStatus.BAD_REQUEST);
 
     private final String msg;
     private final HttpStatus status;

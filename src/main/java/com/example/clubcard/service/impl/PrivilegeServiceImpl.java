@@ -60,4 +60,15 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         privilegeRepository.save(privilege);
         return privilegeMapper.toDto(privilege);
     }
+
+    public void deletePrivilege(Long id){
+        Privilege privilege = findById(id);
+
+        if (privilege.getUsers().size() > 0){
+            throw new CustomException(PrivilegeErrorMessage.CANT_DELETE_PRIVILEGE.getMsg(),
+                    PrivilegeErrorMessage.CANT_DELETE_PRIVILEGE.getStatus());
+        }
+
+        privilegeRepository.delete(privilege);
+    }
 }

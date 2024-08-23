@@ -6,6 +6,7 @@ import com.example.clubcard.domain.dto.response.privilege.PrivilegeResponse;
 import com.example.clubcard.service.PrivilegeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,8 @@ public class AdminController implements AdminApi {
     }
 
     @DeleteMapping("/privilege/{id}/delete")
-    public ResponseEntity<?> deletePrivilege(@PathVariable Long id){
-        return ResponseEntity.ok("1234");
+    public ResponseEntity<Void> deletePrivilege(@PathVariable Long id){
+        privilegeService.deletePrivilege(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
