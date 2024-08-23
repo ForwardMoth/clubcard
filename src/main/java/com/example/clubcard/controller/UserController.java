@@ -40,18 +40,18 @@ public class UserController implements UserApi {
         return ResponseEntity.ok(userService.getUser(id));
     }
 
-    @PostMapping("/{id}/update/profile")
+    @PatchMapping("/{id}/update/profile")
     public ResponseEntity<UserResponse> updateProfile(@PathVariable Long id,
                                                       @RequestBody @Valid UserUpdateRequest request){
         return ResponseEntity.ok(userService.updateProfile(id, request));
     }
 
-    @PostMapping("/{id}/update/blocked")
+    @PatchMapping("/{id}/update/blocked")
     public ResponseEntity<UserStatusResponse> updateBlockStatus(@PathVariable Long id){
         return ResponseEntity.ok(userService.updateStatus(id));
     }
 
-    @PostMapping("/{id}/update/privilege")
+    @PatchMapping("/{id}/update/privilege")
     public ResponseEntity<UserResponse> updatePrivilege(@PathVariable Long id,
                                              @RequestBody @Valid PrivilegeRequest request){
         return ResponseEntity.ok(userService.updatePrivilege(id, request));
