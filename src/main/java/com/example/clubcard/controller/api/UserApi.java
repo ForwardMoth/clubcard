@@ -1,7 +1,7 @@
 package com.example.clubcard.controller.api;
 
-import com.example.clubcard.domain.dto.response.UserProfileResponse;
-import com.example.clubcard.exception.CustomException;
+import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
+import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
 import com.example.clubcard.exception.message.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

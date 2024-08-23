@@ -1,7 +1,8 @@
 package com.example.clubcard.controller;
 
 import com.example.clubcard.controller.api.UserApi;
-import com.example.clubcard.domain.dto.response.UserProfileResponse;
+import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
+import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
 import com.example.clubcard.service.UserService;
 import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;

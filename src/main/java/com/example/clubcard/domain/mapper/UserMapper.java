@@ -1,7 +1,7 @@
 package com.example.clubcard.domain.mapper;
 
 import com.example.clubcard.domain.dto.request.SignUpRequest;
-import com.example.clubcard.domain.dto.response.UserProfileResponse;
+import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
 import com.example.clubcard.domain.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

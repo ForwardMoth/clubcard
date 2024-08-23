@@ -1,4 +1,4 @@
-package com.example.clubcard.domain.dto.response;
+package com.example.clubcard.domain.dto.response.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

@@ -1,6 +1,8 @@
 package com.example.clubcard.service.impl;
 
-import com.example.clubcard.domain.dto.response.UserProfileResponse;
+import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
+import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
+import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.domain.enums.PrivilegeEnum;
 import com.example.clubcard.domain.enums.RoleEnum;
 import com.example.clubcard.domain.entity.User;

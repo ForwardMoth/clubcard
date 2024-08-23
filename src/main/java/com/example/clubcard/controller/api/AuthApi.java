@@ -2,7 +2,7 @@ package com.example.clubcard.controller.api;
 
 import com.example.clubcard.domain.dto.request.SignInRequest;
 import com.example.clubcard.domain.dto.request.SignUpRequest;
-import com.example.clubcard.domain.dto.response.JwtAuthResponse;
+import com.example.clubcard.domain.dto.response.jwt.JwtAuthResponse;
 import com.example.clubcard.exception.message.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

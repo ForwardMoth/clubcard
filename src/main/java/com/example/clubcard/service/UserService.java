@@ -1,6 +1,7 @@
 package com.example.clubcard.service;
 
-import com.example.clubcard.domain.dto.response.UserProfileResponse;
+import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
+import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
 import com.example.clubcard.domain.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 

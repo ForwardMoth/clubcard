@@ -2,7 +2,7 @@ package com.example.clubcard.service.impl;
 
 import com.example.clubcard.domain.dto.request.SignInRequest;
 import com.example.clubcard.domain.dto.request.SignUpRequest;
-import com.example.clubcard.domain.dto.response.JwtAuthResponse;
+import com.example.clubcard.domain.dto.response.jwt.JwtAuthResponse;
 import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.domain.mapper.UserMapper;
 import com.example.clubcard.exception.CustomException;
