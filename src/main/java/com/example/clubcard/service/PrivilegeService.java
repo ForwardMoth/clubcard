@@ -1,5 +1,6 @@
 package com.example.clubcard.service;
 
+import com.example.clubcard.domain.dto.request.privilege.PrivilegeRequest;
 import com.example.clubcard.domain.dto.response.privilege.PrivilegeResponse;
 import com.example.clubcard.domain.entity.Privilege;
 
@@ -13,4 +14,6 @@ public interface PrivilegeService {
     List<PrivilegeResponse> getAllPrivileges();
 
     PrivilegeResponse getPrivilege(Long id);
+
+    PrivilegeResponse createPrivilege(PrivilegeRequest request);
 }
