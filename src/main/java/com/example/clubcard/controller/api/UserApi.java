@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@Tag(name = "User's endpoint")
+@Tag(name = "User endpoints")
 public interface UserApi {
     @Operation(summary = "Personal information about user")
     @ApiResponses({
