@@ -2,16 +2,19 @@ package com.example.clubcard.service.impl;
 
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
+import com.example.clubcard.domain.dto.response.user.UserStatusResponse;
+import com.example.clubcard.domain.entity.Privilege;
 import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.domain.enums.PrivilegeEnum;
 import com.example.clubcard.domain.enums.RoleEnum;
+import com.example.clubcard.domain.mapper.PrivilegeMapper;
 import com.example.clubcard.domain.mapper.UserMapper;
 import com.example.clubcard.exception.CustomException;
 import com.example.clubcard.exception.message.UserErrorMessage;
-import com.example.clubcard.repository.PrivilegeRepository;
 import com.example.clubcard.repository.RoleRepository;
 import com.example.clubcard.repository.UserRepository;
 import com.example.clubcard.service.JwtService;
+import com.example.clubcard.service.PrivilegeService;
 import com.example.clubcard.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +31,9 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final PrivilegeRepository privilegeRepository;
+    private final PrivilegeService privilegeService;
     private final UserMapper userMapper;
+    private final PrivilegeMapper privilegeMapper;
     private final JwtService jwtService;
 
     public User create(User user){
@@ -38,9 +42,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(roleRepository.findByName(RoleEnum.USER.name()).orElseThrow(
                 () -> new CustomException(UserErrorMessage.ROLE_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
         ));
-        user.setPrivilege(privilegeRepository.findByName(PrivilegeEnum.STANDARD.getName()).orElseThrow(
-                () -> new CustomException(UserErrorMessage.PRIVILEGE_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
-        ));
+        user.setPrivilege(privilegeService.getByName(PrivilegeEnum.STANDARD.getName()));
         return userRepository.save(user);
     }
 
@@ -75,6 +77,15 @@ public class UserServiceImpl implements UserService {
     public UserBalanceResponse getBalance(Long id){
         User user = findById(id);
         return new UserBalanceResponse(user.getMoney());
+    }
+
+    public UserStatusResponse getStatus(Long id){
+        User user = findById(id);
+        Privilege privilege = user.getPrivilege();
+        return new UserStatusResponse(
+                user.getIsBlocked(),
+                privilegeMapper.toResponse(privilege)
+        );
     }
 
 //    public User getUser(Long id, String auth){

@@ -3,6 +3,7 @@ package com.example.clubcard.controller;
 import com.example.clubcard.controller.api.UserApi;
 import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
 import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
+import com.example.clubcard.domain.dto.response.user.UserStatusResponse;
 import com.example.clubcard.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,8 @@ public class UserController implements UserApi {
     }
 
     @GetMapping("/{id}/status")
-    public ResponseEntity<?> getStatus(@PathVariable Long id){
-        return ResponseEntity.ok("123");
+    public ResponseEntity<UserStatusResponse> getStatus(@PathVariable Long id){
+        return ResponseEntity.ok(userService.getStatus(id));
     }
 
     @GetMapping("/{id}")
