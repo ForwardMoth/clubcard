@@ -47,6 +47,9 @@ public class User implements UserDetails {
     @Min(0)
     private Integer money;
 
+    @Column(name = "isBlocked", nullable = false, columnDefinition = "false")
+    private Boolean isBlocked;
+
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;

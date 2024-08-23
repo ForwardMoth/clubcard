@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
     private final JwtService jwtService;
 
     public User create(User user){
+        user.setIsBlocked(false);
         user.setMoney(0);
         user.setRole(roleRepository.findByName(RoleEnum.USER.name()).orElseThrow(
                 () -> new CustomException(UserErrorMessage.ROLE_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
