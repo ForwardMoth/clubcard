@@ -15,11 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController implements UserApi {
     private final UserService userService;
 
-    @GetMapping
-    public String get() {
-        return "Hello, user!";
-    }
-
     @GetMapping("/{id}/profile")
     public ResponseEntity<UserProfileResponse> getProfile(@PathVariable Long id,
                                                           @RequestHeader(HttpHeaders.AUTHORIZATION) String auth){

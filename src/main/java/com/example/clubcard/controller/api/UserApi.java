@@ -16,28 +16,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 @Tag(name = "User's endpoint")
 public interface UserApi {
-
-    @Operation(summary = "Access for authorized users")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Success hello message",
-                    content = { @Content(
-                            schema = @Schema(implementation = String.class),
-                            mediaType = "application/text"
-                    ) }
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    description = "Unauthorized",
-                    content = { @Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
-                            mediaType = "application/json"
-                    ) }
-            )
-    })
-    String get();
-
     @Operation(summary = "Personal information about user")
     @ApiResponses({
             @ApiResponse(
