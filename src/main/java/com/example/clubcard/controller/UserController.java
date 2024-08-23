@@ -44,8 +44,8 @@ public class UserController implements UserApi {
     }
 
     @PostMapping("/{id}/update/blocked")
-    public ResponseEntity<?> updateBlockStatus(@PathVariable Long id){
-        return ResponseEntity.ok("123");
+    public ResponseEntity<UserStatusResponse> updateBlockStatus(@PathVariable Long id){
+        return ResponseEntity.ok(userService.updateStatus(id));
     }
 
     @PostMapping("/{id}/update/privilege")

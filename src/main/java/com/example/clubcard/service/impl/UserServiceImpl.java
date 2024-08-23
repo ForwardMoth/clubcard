@@ -88,5 +88,12 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         return userMapper.toDto(user);
     }
+
+    public UserStatusResponse updateStatus(Long id){
+        User user = findById(id);
+        user.setIsBlocked(!user.getIsBlocked());
+        userRepository.save(user);
+        return userMapper.toStatusResponse(user);
+    }
 }
 

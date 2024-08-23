@@ -28,4 +28,6 @@ public interface UserService extends UserDetailsService {
     UserResponse getUser(Long id);
 
     UserResponse updateProfile(Long id, UserUpdateRequest request);
+
+    UserStatusResponse updateStatus(Long id);
 }
