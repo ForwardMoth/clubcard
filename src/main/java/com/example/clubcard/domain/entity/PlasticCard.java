@@ -24,6 +24,6 @@ public class PlasticCard {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "card_type_id", referencedColumnName = "id") // , referencedColumnName = "id"
+    @JoinColumn(name = "card_type_id", referencedColumnName = "id")
     private CardType cardType;
 }
