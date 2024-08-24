@@ -14,9 +14,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "User endpoints")
 public interface UserApi {
@@ -262,4 +265,54 @@ public interface UserApi {
             )
     })
     ResponseEntity<Void> deleteUser(@PathVariable Long id);
+
+    @Operation(summary = "Find all users with pagination and filters (ADMIN ACCESS)")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success found users",
+                    content = { @Content(
+                            schema = @Schema(implementation = Void.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad request",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Forbidden",
+                    content = { @Content(
+                            schema = @Schema(implementation = ErrorMessage.class),
+                            mediaType = "application/json"
+                    ) }
+            )
+    })
+    ResponseEntity<Page<UserResponse>> getAllUsers(
+            @RequestParam(defaultValue = "0")
+            @Min(0)
+            Integer offset,
+            @RequestParam(defaultValue = "10")
+            @Min(1)
+            Integer limit,
+            @RequestParam(required = false)
+            String lastname,
+            @RequestParam(required = false)
+            Long privilegeId,
+            @RequestParam(required = false)
+            Boolean isBlocked
+    );
 }
