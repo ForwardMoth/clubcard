@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserBalanceResponse getBalance(Long id){
-        return userMapper.toBalanceResponce(findById(id));
+        return userMapper.toBalanceResponse(findById(id));
     }
 
     public UserStatusResponse getStatus(Long id){

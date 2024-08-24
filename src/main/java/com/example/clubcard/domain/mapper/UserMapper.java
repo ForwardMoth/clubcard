@@ -27,7 +27,7 @@ public interface UserMapper {
     UserStatusResponse toStatusResponse(User user);
 
     @Mapping(source = "id",target = "userId")
-    UserBalanceResponse toBalanceResponce(User user);
+    UserBalanceResponse toBalanceResponse(User user);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateUserFromDto(UserUpdateRequest request, @MappingTarget User user);

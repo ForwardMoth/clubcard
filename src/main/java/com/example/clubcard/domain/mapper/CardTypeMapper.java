@@ -12,7 +12,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CardTypeMapper {
-//    CardTypeResponse toDto(CardType cardType);
     CardTypeResponse toDto(CardType CardType);
 
     CardType toEntity(CardTypeRequest request);
