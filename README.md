@@ -10,6 +10,8 @@
 - Liquibase 4.22
 - Maven 4.0.0
 - Swagger 3.0
+- Docker 27.1.1
+- Docker Compose 2.29.1
 
 ### Features
 

@@ -1,0 +1,45 @@
+services:
+  clubcard:
+    image: postgres:14
+    container_name: club_card_postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: "/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - club_card
+
+  club_card_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: club_card
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PORT: ${DB_PORT}
+      DB_HOST: ${DB_HOST}
+      SECRET_KEY: ${SECRET_KEY}
+      LIFETIME: ${LIFETIME}
+      HTTP_PORT: ${HTTP_PORT}
+    ports:
+      - "${HTTP_PORT}:8080"
+    depends_on:
+      clubcard:
+        condition: service_healthy
+    networks:
+      - club_card
+
+
+networks:
+  club_card:
+
