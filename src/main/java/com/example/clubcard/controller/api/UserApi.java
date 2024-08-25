@@ -25,26 +25,26 @@ public interface UserApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success getting user profile",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = UserProfileResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<UserResponse> getUserByQrCode(@RequestParam @NotNull String uuid);
@@ -54,26 +54,26 @@ public interface UserApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success getting user uuid",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = UserProfileResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<UserQrCodeResponse> getQrCode(@PathVariable Long id);
@@ -83,26 +83,26 @@ public interface UserApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success getting profile",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = UserProfileResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<UserProfileResponse> getProfile(@PathVariable Long id);
@@ -112,26 +112,26 @@ public interface UserApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success getting user balance",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = UserBalanceResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<UserBalanceResponse> getBalance(@PathVariable Long id);
@@ -141,26 +141,26 @@ public interface UserApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success getting user status and privilege",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = UserStatusResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     public ResponseEntity<UserStatusResponse> getStatus(@PathVariable Long id);
@@ -170,26 +170,26 @@ public interface UserApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success getting user information",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = UserResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<UserResponse> getUser(@PathVariable Long id);
@@ -200,26 +200,26 @@ public interface UserApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success updating user information",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = UserResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<UserResponse> updateProfile(@PathVariable Long id,
@@ -230,26 +230,26 @@ public interface UserApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success updating block status of user",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = UserStatusResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<UserStatusResponse> updateBlockStatus(@PathVariable Long id);
@@ -259,34 +259,34 @@ public interface UserApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success updating user privilege",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = UserResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "400",
                     description = "Bad Request",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<UserResponse> updatePrivilege(@PathVariable Long id,
@@ -297,63 +297,63 @@ public interface UserApi {
             @ApiResponse(
                     responseCode = "204",
                     description = "No content",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = Void.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<Void> deleteUser(@PathVariable Long id);
 
-    @Operation(summary = "Find all users with pagination and filters (ADMIN ACCESS)")
+    @Operation(summary = "Get all users with pagination and filters (ADMIN ACCESS)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
                     description = "Success found users",
-                    content = { @Content(
-                            schema = @Schema(implementation = Void.class),
+                    content = {@Content(
+                            schema = @Schema(implementation = Page.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "400",
                     description = "Bad request",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "403",
                     description = "Forbidden",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = ErrorMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<Page<UserResponse>> getAllUsers(

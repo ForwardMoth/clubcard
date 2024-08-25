@@ -5,7 +5,7 @@ import com.example.clubcard.domain.dto.user.UserResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 @Schema(description = "Plastic card response")
@@ -17,7 +17,7 @@ public class PlasticCardResponse {
     private String status;
 
     @Schema(name = "createdAt")
-    private Date createdAt;
+    private Instant createdAt;
 
     @Schema(name = "user")
     private UserResponse userResponse;

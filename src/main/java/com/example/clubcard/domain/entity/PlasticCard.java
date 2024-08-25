@@ -3,11 +3,11 @@ package com.example.clubcard.domain.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 @Entity
-@Table(name="plastic_card")
+@Table(name = "plastic_card")
 public class PlasticCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +17,10 @@ public class PlasticCard {
     private String status;
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATE")
-    private Date createdAt;
+    private Instant createdAt;
 
     @OneToOne
-    @JoinColumn(name ="user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @ManyToOne
