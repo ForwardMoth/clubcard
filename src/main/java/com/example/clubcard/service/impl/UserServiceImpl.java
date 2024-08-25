@@ -4,10 +4,7 @@ import com.example.clubcard.domain.dto.request.page.PageDto;
 import com.example.clubcard.domain.dto.request.privilege.PrivilegeIdRequest;
 import com.example.clubcard.domain.dto.request.user.UserFilterRequest;
 import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
-import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
-import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
-import com.example.clubcard.domain.dto.response.user.UserResponse;
-import com.example.clubcard.domain.dto.response.user.UserStatusResponse;
+import com.example.clubcard.domain.dto.response.user.*;
 import com.example.clubcard.domain.entity.Privilege;
 import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.domain.enums.PrivilegeEnum;
@@ -130,6 +127,22 @@ public class UserServiceImpl implements UserService {
     public Page<UserResponse> getAllUsers(PageDto pageDto,
                                           UserFilterRequest userFilterRequest) {
         return userCriteriaRepository.findAllWithFilters(pageDto, userFilterRequest).map(userMapper::toDto);
+    }
+
+    @Override
+    public UserQrCodeResponse getQrCode(Long id) {
+        return userMapper.toQrCodeResponse(findById(id));
+    }
+
+    @Override
+    public UserResponse getUserByQrCode(String uuid) {
+        return userMapper.toDto(findByUuid(uuid));
+    }
+
+    private User findByUuid(String uuid) {
+        return userRepository.findByUuid(uuid).orElseThrow(
+                () -> new CustomException(UserErrorMessage.USER_IS_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
+        );
     }
 }
 

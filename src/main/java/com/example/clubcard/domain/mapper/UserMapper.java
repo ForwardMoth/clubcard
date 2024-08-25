@@ -2,10 +2,7 @@ package com.example.clubcard.domain.mapper;
 
 import com.example.clubcard.domain.dto.request.sign.SignUpRequest;
 import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
-import com.example.clubcard.domain.dto.response.user.UserBalanceResponse;
-import com.example.clubcard.domain.dto.response.user.UserProfileResponse;
-import com.example.clubcard.domain.dto.response.user.UserResponse;
-import com.example.clubcard.domain.dto.response.user.UserStatusResponse;
+import com.example.clubcard.domain.dto.response.user.*;
 import com.example.clubcard.domain.entity.User;
 import org.mapstruct.*;
 
@@ -31,4 +28,6 @@ public interface UserMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateUserFromDto(UserUpdateRequest request, @MappingTarget User user);
+
+    UserQrCodeResponse toQrCodeResponse(User user);
 }
