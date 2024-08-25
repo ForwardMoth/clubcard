@@ -3,6 +3,7 @@ package com.example.clubcard.service.impl;
 import com.example.clubcard.domain.dto.request.plastic_card.PlasticCardRequest;
 import com.example.clubcard.domain.dto.response.plastic_card.PlasticCardResponse;
 import com.example.clubcard.domain.entity.PlasticCard;
+import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.domain.enums.PlasticCardEnum;
 import com.example.clubcard.domain.mapper.PlasticCardMapper;
 import com.example.clubcard.exception.CustomException;
@@ -59,6 +60,9 @@ public class PlasticCardServiceImpl implements PlasticCardService {
     @Override
     public PlasticCardResponse updateCard(Long id, PlasticCardRequest request) {
         deleteCard(id);
+        User user = userService.findById(id);
+        user.setUUID();
+        userService.save(user);
         return plasticCardMapper.toDto(create(id, request));
     }
 

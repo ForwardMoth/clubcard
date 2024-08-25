@@ -38,22 +38,27 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final UserCriteriaRepository userCriteriaRepository;
 
-    public User create(User user){
+    public User create(User user) {
         user.setIsBlocked(false);
         user.setMoney(0);
+        user.setUUID();
         user.setRole(roleRepository.findByName(RoleEnum.USER.name()).orElseThrow(
                 () -> new CustomException(UserErrorMessage.ROLE_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
         ));
         user.setPrivilege(privilegeService.getByName(PrivilegeEnum.STANDARD.getName()));
+        return save(user);
+    }
+
+    public User save(User user) {
         return userRepository.save(user);
     }
 
-    public User findByEmail(String email){
+    public User findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User with '%s' isn't found", email)));
     }
 
-    public Boolean isExisted(String email){
+    public Boolean isExisted(String email) {
         return userRepository.existsByEmail(email);
     }
 
@@ -65,65 +70,65 @@ public class UserServiceImpl implements UserService {
         );
     }
 
-    public User findById(Long id){
+    public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(
                 () -> new CustomException(UserErrorMessage.USER_IS_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
         );
     }
 
-    public UserProfileResponse getProfile(Long id){
+    public UserProfileResponse getProfile(Long id) {
         return userMapper.toProfileResponse(findById(id));
     }
 
-    public UserBalanceResponse getBalance(Long id){
+    public UserBalanceResponse getBalance(Long id) {
         return userMapper.toBalanceResponse(findById(id));
     }
 
-    public UserStatusResponse getStatus(Long id){
+    public UserStatusResponse getStatus(Long id) {
         return userMapper.toStatusResponse(findById(id));
     }
 
-    public UserResponse getUser(Long id){
+    public UserResponse getUser(Long id) {
         return userMapper.toDto(findById(id));
     }
 
-    public UserResponse updateProfile(Long id, UserUpdateRequest request){
+    public UserResponse updateProfile(Long id, UserUpdateRequest request) {
         User user = findById(id);
         userMapper.updateUserFromDto(request, user);
-        userRepository.save(user);
+        save(user);
         return userMapper.toDto(user);
     }
 
-    public UserStatusResponse updateStatus(Long id){
+    public UserStatusResponse updateStatus(Long id) {
         User user = findById(id);
         user.setIsBlocked(!user.getIsBlocked());
-        userRepository.save(user);
+        save(user);
         return userMapper.toStatusResponse(user);
     }
 
-    public UserResponse updatePrivilege(Long id, PrivilegeIdRequest request){
+    public UserResponse updatePrivilege(Long id, PrivilegeIdRequest request) {
         Privilege privilege = privilegeService.findById(request.getPrivilegeId());
         User user = findById(id);
         Integer userBalance = user.getMoney(), privilegePrice = privilege.getPrice();
 
-        if (userBalance < privilegePrice){
+        if (userBalance < privilegePrice) {
             throw new CustomException(UserErrorMessage.NOT_ENOUGH_MONEY.getDescription(),
                     HttpStatus.BAD_REQUEST);
         }
 
         user.setMoney(userBalance - privilegePrice);
         user.setPrivilege(privilege);
-        userRepository.save(user);
+        save(user);
         return userMapper.toDto(user);
     }
 
-    public void deleteUser(Long id){
+    public void deleteUser(Long id) {
         userRepository.delete(findById(id));
     }
 
     @Override
     public Page<UserResponse> getAllUsers(PageDto pageDto,
-                                  UserFilterRequest userFilterRequest) {
+                                          UserFilterRequest userFilterRequest) {
         return userCriteriaRepository.findAllWithFilters(pageDto, userFilterRequest).map(userMapper::toDto);
     }
 }

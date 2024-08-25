@@ -35,6 +35,9 @@ public class UserResponse {
     @Schema(name = "isBlocked", example = "false")
     private Boolean isBlocked;
 
+    @Schema(name = "uuid", example = "9c508efd-d7a7-423f-a4d1-cb5389909fbf")
+    private String uuid;
+
     @Schema(name = "Privilege")
     private PrivilegeResponse privilegeResponse;
 }

@@ -12,13 +12,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="users")
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,16 +54,23 @@ public class User implements UserDetails {
     @Column(name = "isBlocked", nullable = false, columnDefinition = "false")
     private Boolean isBlocked;
 
+    @Column(name = "uuid", nullable = false, unique = true)
+    private String uuid;
+
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name ="privilege_id", referencedColumnName = "id")
+    @JoinColumn(name = "privilege_id", referencedColumnName = "id")
     private Privilege privilege;
 
     @OneToOne(mappedBy = "user")
     private PlasticCard plasticCard;
+
+    public void setUUID() {
+        this.uuid = String.valueOf(UUID.randomUUID());
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
