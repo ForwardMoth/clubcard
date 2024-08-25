@@ -1,8 +1,8 @@
 package com.example.clubcard.controller;
 
 import com.example.clubcard.controller.api.CardTypeApi;
-import com.example.clubcard.domain.dto.request.card_type.CardTypeRequest;
-import com.example.clubcard.domain.dto.response.card_type.CardTypeResponse;
+import com.example.clubcard.domain.dto.card_type.CardTypeRequest;
+import com.example.clubcard.domain.dto.card_type.CardTypeResponse;
 import com.example.clubcard.service.CardTypeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

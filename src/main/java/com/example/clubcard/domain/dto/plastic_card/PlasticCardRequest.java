@@ -1,4 +1,4 @@
-package com.example.clubcard.domain.dto.request.plastic_card;
+package com.example.clubcard.domain.dto.plastic_card;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

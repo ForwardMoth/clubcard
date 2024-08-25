@@ -1,8 +1,8 @@
 package com.example.clubcard.controller;
 
 import com.example.clubcard.controller.api.PrivilegeApi;
-import com.example.clubcard.domain.dto.request.privilege.PrivilegeRequest;
-import com.example.clubcard.domain.dto.response.privilege.PrivilegeResponse;
+import com.example.clubcard.domain.dto.privilege.PrivilegeRequest;
+import com.example.clubcard.domain.dto.privilege.PrivilegeResponse;
 import com.example.clubcard.service.PrivilegeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

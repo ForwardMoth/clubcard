@@ -1,7 +1,7 @@
-package com.example.clubcard.domain.dto.response.plastic_card;
+package com.example.clubcard.domain.dto.plastic_card;
 
-import com.example.clubcard.domain.dto.response.card_type.CardTypeResponse;
-import com.example.clubcard.domain.dto.response.user.UserResponse;
+import com.example.clubcard.domain.dto.card_type.CardTypeResponse;
+import com.example.clubcard.domain.dto.user.UserResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

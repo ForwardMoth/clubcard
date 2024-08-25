@@ -1,4 +1,4 @@
-package com.example.clubcard.domain.dto.request.card_type;
+package com.example.clubcard.domain.dto.card_type;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

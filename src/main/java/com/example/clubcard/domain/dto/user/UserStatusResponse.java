@@ -1,6 +1,6 @@
-package com.example.clubcard.domain.dto.response.user;
+package com.example.clubcard.domain.dto.user;
 
-import com.example.clubcard.domain.dto.response.privilege.PrivilegeResponse;
+import com.example.clubcard.domain.dto.privilege.PrivilegeResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;

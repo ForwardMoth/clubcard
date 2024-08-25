@@ -1,7 +1,7 @@
 package com.example.clubcard.controller.api;
 
-import com.example.clubcard.domain.dto.request.card_type.CardTypeRequest;
-import com.example.clubcard.domain.dto.response.card_type.CardTypeResponse;
+import com.example.clubcard.domain.dto.card_type.CardTypeRequest;
+import com.example.clubcard.domain.dto.card_type.CardTypeResponse;
 import com.example.clubcard.exception.message.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

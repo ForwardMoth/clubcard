@@ -1,8 +1,8 @@
 package com.example.clubcard.controller;
 
 import com.example.clubcard.controller.api.PlasticCardApi;
-import com.example.clubcard.domain.dto.request.plastic_card.PlasticCardRequest;
-import com.example.clubcard.domain.dto.response.plastic_card.PlasticCardResponse;
+import com.example.clubcard.domain.dto.plastic_card.PlasticCardRequest;
+import com.example.clubcard.domain.dto.plastic_card.PlasticCardResponse;
 import com.example.clubcard.service.PlasticCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

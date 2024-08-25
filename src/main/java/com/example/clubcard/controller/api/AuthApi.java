@@ -1,8 +1,8 @@
 package com.example.clubcard.controller.api;
 
-import com.example.clubcard.domain.dto.request.sign.SignInRequest;
-import com.example.clubcard.domain.dto.request.sign.SignUpRequest;
-import com.example.clubcard.domain.dto.response.jwt.JwtAuthResponse;
+import com.example.clubcard.domain.dto.sign.SignInRequest;
+import com.example.clubcard.domain.dto.sign.SignUpRequest;
+import com.example.clubcard.domain.dto.jwt.JwtAuthResponse;
 import com.example.clubcard.exception.message.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

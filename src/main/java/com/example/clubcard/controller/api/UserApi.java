@@ -1,8 +1,7 @@
 package com.example.clubcard.controller.api;
 
-import com.example.clubcard.domain.dto.request.privilege.PrivilegeIdRequest;
-import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
-import com.example.clubcard.domain.dto.response.user.*;
+import com.example.clubcard.domain.dto.privilege.PrivilegeIdRequest;
+import com.example.clubcard.domain.dto.user.*;
 import com.example.clubcard.exception.message.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

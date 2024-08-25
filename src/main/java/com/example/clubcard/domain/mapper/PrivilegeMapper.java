@@ -1,7 +1,7 @@
 package com.example.clubcard.domain.mapper;
 
-import com.example.clubcard.domain.dto.request.privilege.PrivilegeRequest;
-import com.example.clubcard.domain.dto.response.privilege.PrivilegeResponse;
+import com.example.clubcard.domain.dto.privilege.PrivilegeRequest;
+import com.example.clubcard.domain.dto.privilege.PrivilegeResponse;
 import com.example.clubcard.domain.entity.Privilege;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;

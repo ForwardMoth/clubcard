@@ -1,6 +1,6 @@
 package com.example.clubcard.domain.mapper;
 
-import com.example.clubcard.domain.dto.response.plastic_card.PlasticCardResponse;
+import com.example.clubcard.domain.dto.plastic_card.PlasticCardResponse;
 import com.example.clubcard.domain.entity.PlasticCard;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,10 +1,8 @@
 package com.example.clubcard.service;
 
-import com.example.clubcard.domain.dto.request.page.PageDto;
-import com.example.clubcard.domain.dto.request.privilege.PrivilegeIdRequest;
-import com.example.clubcard.domain.dto.request.user.UserFilterRequest;
-import com.example.clubcard.domain.dto.request.user.UserUpdateRequest;
-import com.example.clubcard.domain.dto.response.user.*;
+import com.example.clubcard.domain.dto.page.PageDto;
+import com.example.clubcard.domain.dto.privilege.PrivilegeIdRequest;
+import com.example.clubcard.domain.dto.user.*;
 import com.example.clubcard.domain.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;

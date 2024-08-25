@@ -1,7 +1,7 @@
 package com.example.clubcard.repository.criteria;
 
-import com.example.clubcard.domain.dto.request.page.PageDto;
-import com.example.clubcard.domain.dto.request.user.UserFilterRequest;
+import com.example.clubcard.domain.dto.page.PageDto;
+import com.example.clubcard.domain.dto.user.UserFilterRequest;
 import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.service.PrivilegeService;
 import jakarta.persistence.EntityManager;

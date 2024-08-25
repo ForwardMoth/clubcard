@@ -1,9 +1,9 @@
 package com.example.clubcard.controller;
 
 import com.example.clubcard.controller.api.AuthApi;
-import com.example.clubcard.domain.dto.request.sign.SignInRequest;
-import com.example.clubcard.domain.dto.request.sign.SignUpRequest;
-import com.example.clubcard.domain.dto.response.jwt.JwtAuthResponse;
+import com.example.clubcard.domain.dto.sign.SignInRequest;
+import com.example.clubcard.domain.dto.sign.SignUpRequest;
+import com.example.clubcard.domain.dto.jwt.JwtAuthResponse;
 import com.example.clubcard.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

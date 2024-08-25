@@ -1,4 +1,4 @@
-package com.example.clubcard.domain.dto.request.sign;
+package com.example.clubcard.domain.dto.sign;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;

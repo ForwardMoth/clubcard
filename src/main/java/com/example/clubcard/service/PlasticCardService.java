@@ -1,7 +1,7 @@
 package com.example.clubcard.service;
 
-import com.example.clubcard.domain.dto.request.plastic_card.PlasticCardRequest;
-import com.example.clubcard.domain.dto.response.plastic_card.PlasticCardResponse;
+import com.example.clubcard.domain.dto.plastic_card.PlasticCardRequest;
+import com.example.clubcard.domain.dto.plastic_card.PlasticCardResponse;
 import com.example.clubcard.domain.entity.PlasticCard;
 
 public interface PlasticCardService {

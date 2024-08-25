@@ -1,7 +1,7 @@
 package com.example.clubcard.service.impl;
 
-import com.example.clubcard.domain.dto.request.card_type.CardTypeRequest;
-import com.example.clubcard.domain.dto.response.card_type.CardTypeResponse;
+import com.example.clubcard.domain.dto.card_type.CardTypeRequest;
+import com.example.clubcard.domain.dto.card_type.CardTypeResponse;
 import com.example.clubcard.domain.entity.CardType;
 import com.example.clubcard.domain.mapper.CardTypeMapper;
 import com.example.clubcard.exception.CustomException;

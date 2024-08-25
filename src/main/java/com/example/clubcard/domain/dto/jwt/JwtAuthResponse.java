@@ -1,4 +1,4 @@
-package com.example.clubcard.domain.dto.response.jwt;
+package com.example.clubcard.domain.dto.jwt;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
