@@ -2,7 +2,10 @@ package com.example.clubcard.controller.api;
 
 import com.example.clubcard.domain.dto.privilege.PrivilegeIdRequest;
 import com.example.clubcard.domain.dto.user.*;
-import com.example.clubcard.exception.message.ErrorMessage;
+import com.example.clubcard.exception.message.record.BadRequestMessage;
+import com.example.clubcard.exception.message.record.ForbiddenMessage;
+import com.example.clubcard.exception.message.record.NotFoundMessage;
+import com.example.clubcard.exception.message.record.UnauthorizedMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,7 +38,7 @@ public interface UserApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -43,14 +46,14 @@ public interface UserApi {
                     responseCode = "404",
                     description = "Not Found",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = NotFoundMessage.class),
                             mediaType = "application/json"
                     )}
             )
     })
     ResponseEntity<UserResponse> getUserByQrCode(@RequestParam @NotNull String uuid);
 
-    @Operation(summary = "User uuid (auth)")
+    @Operation(summary = "Get user uuid (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -64,7 +67,7 @@ public interface UserApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -72,14 +75,14 @@ public interface UserApi {
                     responseCode = "404",
                     description = "Not Found",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = NotFoundMessage.class),
                             mediaType = "application/json"
                     )}
             )
     })
     ResponseEntity<UserQrCodeResponse> getQrCode(@PathVariable Long id);
 
-    @Operation(summary = "Personal information about user (auth)")
+    @Operation(summary = "Get personal user information (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -93,7 +96,7 @@ public interface UserApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -101,14 +104,14 @@ public interface UserApi {
                     responseCode = "404",
                     description = "Not Found",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = NotFoundMessage.class),
                             mediaType = "application/json"
                     )}
             )
     })
     ResponseEntity<UserProfileResponse> getProfile(@PathVariable Long id);
 
-    @Operation(summary = "User balance (auth)")
+    @Operation(summary = "Get user balance (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -122,7 +125,7 @@ public interface UserApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -130,14 +133,14 @@ public interface UserApi {
                     responseCode = "404",
                     description = "Not Found",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = NotFoundMessage.class),
                             mediaType = "application/json"
                     )}
             )
     })
     ResponseEntity<UserBalanceResponse> getBalance(@PathVariable Long id);
 
-    @Operation(summary = "User status and privilege (auth)")
+    @Operation(summary = "Get user status and privilege (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -151,7 +154,7 @@ public interface UserApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -159,14 +162,14 @@ public interface UserApi {
                     responseCode = "404",
                     description = "Not Found",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = NotFoundMessage.class),
                             mediaType = "application/json"
                     )}
             )
     })
     public ResponseEntity<UserStatusResponse> getStatus(@PathVariable Long id);
 
-    @Operation(summary = "Full user information (auth)")
+    @Operation(summary = "Get full user information (auth)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -180,7 +183,7 @@ public interface UserApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -188,7 +191,7 @@ public interface UserApi {
                     responseCode = "404",
                     description = "Not Found",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = NotFoundMessage.class),
                             mediaType = "application/json"
                     )}
             )
@@ -207,10 +210,18 @@ public interface UserApi {
                     )}
             ),
             @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad request",
+                    content = {@Content(
+                            schema = @Schema(implementation = BadRequestMessage.class),
+                            mediaType = "application/json"
+                    )}
+            ),
+            @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -218,7 +229,7 @@ public interface UserApi {
                     responseCode = "404",
                     description = "Not Found",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = NotFoundMessage.class),
                             mediaType = "application/json"
                     )}
             )
@@ -240,7 +251,7 @@ public interface UserApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -248,7 +259,7 @@ public interface UserApi {
                     responseCode = "404",
                     description = "Not Found",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = NotFoundMessage.class),
                             mediaType = "application/json"
                     )}
             )
@@ -267,9 +278,9 @@ public interface UserApi {
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Bad Request",
+                    description = "Bad request",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = BadRequestMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -277,7 +288,7 @@ public interface UserApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -285,7 +296,7 @@ public interface UserApi {
                     responseCode = "404",
                     description = "Not Found",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = NotFoundMessage.class),
                             mediaType = "application/json"
                     )}
             )
@@ -307,7 +318,7 @@ public interface UserApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -315,7 +326,7 @@ public interface UserApi {
                     responseCode = "404",
                     description = "Not Found",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = NotFoundMessage.class),
                             mediaType = "application/json"
                     )}
             )
@@ -336,7 +347,7 @@ public interface UserApi {
                     responseCode = "400",
                     description = "Bad request",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = BadRequestMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -344,7 +355,7 @@ public interface UserApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -352,7 +363,7 @@ public interface UserApi {
                     responseCode = "403",
                     description = "Forbidden",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = ForbiddenMessage.class),
                             mediaType = "application/json"
                     )}
             )

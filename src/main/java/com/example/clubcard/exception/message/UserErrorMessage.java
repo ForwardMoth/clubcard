@@ -12,5 +12,5 @@ public enum UserErrorMessage {
     USER_IS_NOT_FOUND("User with such id is not found"),
     NOT_ENOUGH_MONEY("User don't have enough point to update privilege");
 
-    private final String description;
+    private final String name;
 }

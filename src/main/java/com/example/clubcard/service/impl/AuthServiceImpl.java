@@ -1,18 +1,18 @@
 package com.example.clubcard.service.impl;
 
+import com.example.clubcard.domain.dto.jwt.JwtAuthResponse;
 import com.example.clubcard.domain.dto.sign.SignInRequest;
 import com.example.clubcard.domain.dto.sign.SignUpRequest;
-import com.example.clubcard.domain.dto.jwt.JwtAuthResponse;
 import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.domain.mapper.UserMapper;
-import com.example.clubcard.exception.CustomException;
 import com.example.clubcard.exception.message.AuthErrorMessage;
 import com.example.clubcard.exception.message.UserErrorMessage;
+import com.example.clubcard.exception.type.BadRequestException;
+import com.example.clubcard.exception.type.UnauthorizedException;
 import com.example.clubcard.jwt.JwtCore;
 import com.example.clubcard.service.AuthService;
 import com.example.clubcard.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,12 +33,12 @@ public class AuthServiceImpl implements AuthService {
     public JwtAuthResponse signUp(SignUpRequest request){
         String password = request.getPassword();
         if (!Objects.equals(password, request.getConfirmPassword())){
-           throw new CustomException(UserErrorMessage.PASSWORD_IS_NOT_SAME.getDescription(), HttpStatus.BAD_REQUEST);
+            throw new BadRequestException(UserErrorMessage.PASSWORD_IS_NOT_SAME.getName());
         }
 
         String email = request.getEmail();
         if (userService.isExisted(email)){
-            throw new CustomException(UserErrorMessage.EMAIL_EXISTS.getDescription(), HttpStatus.BAD_REQUEST);
+            throw new BadRequestException(UserErrorMessage.EMAIL_EXISTS.getName());
         }
 
         User user = userMapper.toEntity(request);
@@ -56,10 +56,7 @@ public class AuthServiceImpl implements AuthService {
                     request.getPassword()
             ));
         } catch(BadCredentialsException e){
-            throw new CustomException(
-                    AuthErrorMessage.NO_SUCH_USERNAME_OR_PWD.getMsg(),
-                    AuthErrorMessage.NO_SUCH_USERNAME_OR_PWD.getStatus()
-            );
+            throw new UnauthorizedException(AuthErrorMessage.NO_SUCH_USERNAME_OR_PWD.getName());
         }
 
         User user = userService.findByEmail(request.getEmail());

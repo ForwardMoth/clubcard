@@ -1,6 +1,6 @@
 package com.example.clubcard.jwt;
 
-import com.example.clubcard.exception.message.ErrorMessage;
+import com.example.clubcard.exception.message.record.ErrorMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -2,7 +2,10 @@ package com.example.clubcard.controller.api;
 
 import com.example.clubcard.domain.dto.privilege.PrivilegeRequest;
 import com.example.clubcard.domain.dto.privilege.PrivilegeResponse;
-import com.example.clubcard.exception.message.ErrorMessage;
+import com.example.clubcard.exception.message.record.BadRequestMessage;
+import com.example.clubcard.exception.message.record.ForbiddenMessage;
+import com.example.clubcard.exception.message.record.NotFoundMessage;
+import com.example.clubcard.exception.message.record.UnauthorizedMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,10 +26,10 @@ public interface PrivilegeApi {
     @ApiResponse(
             responseCode = "200",
             description = "List with all privileges",
-            content = { @Content(schema = @Schema(
+            content = {@Content(schema = @Schema(
                     implementation = List.class),
                     mediaType = "application/json"
-            ) }
+            )}
     )
     ResponseEntity<List<PrivilegeResponse>> getAllPrivileges();
 
@@ -35,18 +38,18 @@ public interface PrivilegeApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success getting privilege",
-                    content = { @Content(schema = @Schema(
+                    content = {@Content(schema = @Schema(
                             implementation = PrivilegeResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found",
-                    content = { @Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                    content = {@Content(
+                            schema = @Schema(implementation = NotFoundMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<PrivilegeResponse> getPrivilege(@PathVariable Long id);
@@ -56,34 +59,34 @@ public interface PrivilegeApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success creating privilege",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = PrivilegeResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "400",
                     description = "Bad Request",
-                    content = { @Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                    content = {@Content(
+                            schema = @Schema(implementation = BadRequestMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                    content = {@Content(
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "403",
                     description = "Forbidden",
-                    content = { @Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                    content = {@Content(
+                            schema = @Schema(implementation = ForbiddenMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<PrivilegeResponse> createPrivilege(@RequestBody @Valid PrivilegeRequest request);
@@ -93,34 +96,34 @@ public interface PrivilegeApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success updating privilege",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = PrivilegeResponse.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "400",
                     description = "Bad Request",
-                    content = { @Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                    content = {@Content(
+                            schema = @Schema(implementation = BadRequestMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                    content = {@Content(
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "403",
                     description = "Forbidden",
-                    content = { @Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                    content = {@Content(
+                            schema = @Schema(implementation = ForbiddenMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<PrivilegeResponse> updatePrivilege(@PathVariable Long id,
@@ -132,34 +135,34 @@ public interface PrivilegeApi {
             @ApiResponse(
                     responseCode = "200",
                     description = "No content",
-                    content = { @Content(
+                    content = {@Content(
                             schema = @Schema(implementation = Void.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "400",
                     description = "Bad Request",
-                    content = { @Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                    content = {@Content(
+                            schema = @Schema(implementation = BadRequestMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = { @Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                    content = {@Content(
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             ),
             @ApiResponse(
                     responseCode = "403",
                     description = "Forbidden",
-                    content = { @Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                    content = {@Content(
+                            schema = @Schema(implementation = ForbiddenMessage.class),
                             mediaType = "application/json"
-                    ) }
+                    )}
             )
     })
     ResponseEntity<Void> deletePrivilege(@PathVariable Long id);

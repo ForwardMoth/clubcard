@@ -8,8 +8,9 @@ import com.example.clubcard.domain.entity.PlasticCard;
 import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.domain.enums.PlasticCardEnum;
 import com.example.clubcard.domain.mapper.PlasticCardMapper;
-import com.example.clubcard.exception.CustomException;
 import com.example.clubcard.exception.message.PlasticCardErrorMessage;
+import com.example.clubcard.exception.type.BadRequestException;
+import com.example.clubcard.exception.type.NotFoundException;
 import com.example.clubcard.repository.PlasticCardRepository;
 import com.example.clubcard.repository.criteria.PlasticCardCriteriaRepository;
 import com.example.clubcard.service.CardTypeService;
@@ -18,7 +19,6 @@ import com.example.clubcard.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -45,19 +45,14 @@ public class PlasticCardServiceImpl implements PlasticCardService {
 
     public PlasticCard findByUserId(Long userId) {
         return plasticCardRepository.findByUserId(userId).orElseThrow(() ->
-                new CustomException(
-                        PlasticCardErrorMessage.PLASTIC_CARD_FOR_USER_NOT_FOUND.getMsg(),
-                        PlasticCardErrorMessage.PLASTIC_CARD_FOR_USER_NOT_FOUND.getStatus())
+                new NotFoundException(PlasticCardErrorMessage.PLASTIC_CARD_FOR_USER_NOT_FOUND.getName())
         );
     }
 
     @Override
     public PlasticCardResponse createCard(Long id, PlasticCardRequest request) {
         if (plasticCardRepository.existsByUserId(id)) {
-            throw new CustomException(
-                    PlasticCardErrorMessage.PLASTIC_CARD_TYPE_EXISTS.getMsg(),
-                    PlasticCardErrorMessage.PLASTIC_CARD_TYPE_EXISTS.getStatus()
-            );
+            throw new BadRequestException(PlasticCardErrorMessage.PLASTIC_CARD_TYPE_EXISTS.getName());
         }
         return plasticCardMapper.toDto(create(id, request));
     }
@@ -75,10 +70,7 @@ public class PlasticCardServiceImpl implements PlasticCardService {
     public PlasticCardResponse updateStatusCard(Long id) {
         PlasticCard plasticCard = findByUserId(id);
         if (plasticCard.getStatus().equals(PlasticCardEnum.READY.name())) {
-            throw new CustomException(
-                    PlasticCardErrorMessage.CANT_UPDATE_READY_PLASTIC_CARD.getMsg(),
-                    PlasticCardErrorMessage.CANT_UPDATE_READY_PLASTIC_CARD.getStatus()
-            );
+            throw new BadRequestException(PlasticCardErrorMessage.CANT_UPDATE_READY_PLASTIC_CARD.getName());
         }
         plasticCard.setStatus(PlasticCardEnum.READY.name());
         return plasticCardMapper.toDto(plasticCardRepository.save(plasticCard));
@@ -104,8 +96,8 @@ public class PlasticCardServiceImpl implements PlasticCardService {
     }
 
     private PlasticCard findById(Long id) {
-        return plasticCardRepository.findById(id).orElseThrow(() -> new CustomException(
-                PlasticCardErrorMessage.PLASTIC_CARD_NOT_FOUND.getMsg(),
-                PlasticCardErrorMessage.PLASTIC_CARD_NOT_FOUND.getStatus()));
+        return plasticCardRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(PlasticCardErrorMessage.PLASTIC_CARD_NOT_FOUND.getName())
+        );
     }
 }

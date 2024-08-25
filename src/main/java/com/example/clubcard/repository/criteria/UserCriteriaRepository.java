@@ -3,8 +3,8 @@ package com.example.clubcard.repository.criteria;
 import com.example.clubcard.domain.dto.page.PageDto;
 import com.example.clubcard.domain.dto.user.UserFilterRequest;
 import com.example.clubcard.domain.entity.User;
-import com.example.clubcard.exception.CustomException;
 import com.example.clubcard.exception.message.AppErrorMessage;
+import com.example.clubcard.exception.type.BadRequestException;
 import com.example.clubcard.service.PrivilegeService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -51,16 +51,13 @@ public class UserCriteriaRepository {
 
     private void setOrder(PageDto pageDto, CriteriaQuery<User> criteriaQuery, Root<User> userRoot) {
         try {
-            if(pageDto.getSortDirection().equals(Sort.Direction.ASC)){
+            if (pageDto.getSortDirection().equals(Sort.Direction.ASC)) {
                 criteriaQuery.orderBy(criteriaBuilder.asc(userRoot.get(pageDto.getSortBy())));
-            } else{
+            } else {
                 criteriaQuery.orderBy(criteriaBuilder.desc(userRoot.get(pageDto.getSortBy())));
             }
-        } catch (Exception e){
-            throw new CustomException(
-                    AppErrorMessage.INCORRECT_ATTRIBUTE_NAME.getMsg(),
-                    AppErrorMessage.INCORRECT_ATTRIBUTE_NAME.getStatus()
-            );
+        } catch (Exception e) {
+            throw new BadRequestException(AppErrorMessage.INCORRECT_ATTRIBUTE_NAME.getName());
         }
 
     }

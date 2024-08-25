@@ -8,8 +8,9 @@ import com.example.clubcard.domain.entity.User;
 import com.example.clubcard.domain.enums.PrivilegeEnum;
 import com.example.clubcard.domain.enums.RoleEnum;
 import com.example.clubcard.domain.mapper.UserMapper;
-import com.example.clubcard.exception.CustomException;
 import com.example.clubcard.exception.message.UserErrorMessage;
+import com.example.clubcard.exception.type.BadRequestException;
+import com.example.clubcard.exception.type.NotFoundException;
 import com.example.clubcard.repository.RoleRepository;
 import com.example.clubcard.repository.UserRepository;
 import com.example.clubcard.repository.criteria.UserCriteriaRepository;
@@ -18,7 +19,6 @@ import com.example.clubcard.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
         user.setMoney(0);
         user.setUUID();
         user.setRole(roleRepository.findByName(RoleEnum.USER.name()).orElseThrow(
-                () -> new CustomException(UserErrorMessage.ROLE_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
+                () -> new NotFoundException(UserErrorMessage.ROLE_NOT_FOUND.getName())
         ));
         user.setPrivilege(privilegeService.getByName(PrivilegeEnum.STANDARD.getName()));
         return save(user);
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
     public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(
-                () -> new CustomException(UserErrorMessage.USER_IS_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
+                () -> new NotFoundException(UserErrorMessage.USER_IS_NOT_FOUND.getName())
         );
     }
 
@@ -107,8 +107,7 @@ public class UserServiceImpl implements UserService {
         Integer userBalance = user.getMoney(), privilegePrice = privilege.getPrice();
 
         if (userBalance < privilegePrice) {
-            throw new CustomException(UserErrorMessage.NOT_ENOUGH_MONEY.getDescription(),
-                    HttpStatus.BAD_REQUEST);
+            throw new BadRequestException(UserErrorMessage.NOT_ENOUGH_MONEY.getName());
         }
 
         user.setMoney(userBalance - privilegePrice);
@@ -139,7 +138,7 @@ public class UserServiceImpl implements UserService {
 
     private User findByUuid(String uuid) {
         return userRepository.findByUuid(uuid).orElseThrow(
-                () -> new CustomException(UserErrorMessage.USER_IS_NOT_FOUND.getDescription(), HttpStatus.NOT_FOUND)
+                () -> new NotFoundException(UserErrorMessage.USER_IS_NOT_FOUND.getName())
         );
     }
 }

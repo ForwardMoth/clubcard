@@ -2,7 +2,9 @@ package com.example.clubcard.controller.api;
 
 import com.example.clubcard.domain.dto.plastic_card.PlasticCardRequest;
 import com.example.clubcard.domain.dto.plastic_card.PlasticCardResponse;
-import com.example.clubcard.exception.message.ErrorMessage;
+import com.example.clubcard.exception.message.record.BadRequestMessage;
+import com.example.clubcard.exception.message.record.ForbiddenMessage;
+import com.example.clubcard.exception.message.record.UnauthorizedMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -36,7 +38,7 @@ public interface PlasticCardApi {
                     responseCode = "400",
                     description = "Bad Request",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = BadRequestMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -44,7 +46,7 @@ public interface PlasticCardApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -52,7 +54,7 @@ public interface PlasticCardApi {
                     responseCode = "403",
                     description = "Forbidden",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = ForbiddenMessage.class),
                             mediaType = "application/json"
                     )}
             )
@@ -88,7 +90,7 @@ public interface PlasticCardApi {
                     responseCode = "400",
                     description = "Bad Request",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = BadRequestMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -96,7 +98,7 @@ public interface PlasticCardApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -104,7 +106,7 @@ public interface PlasticCardApi {
                     responseCode = "403",
                     description = "Forbidden",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = ForbiddenMessage.class),
                             mediaType = "application/json"
                     )}
             )
@@ -125,7 +127,7 @@ public interface PlasticCardApi {
                     responseCode = "400",
                     description = "Bad Request",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = BadRequestMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -133,7 +135,7 @@ public interface PlasticCardApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             )
@@ -155,7 +157,7 @@ public interface PlasticCardApi {
                     responseCode = "400",
                     description = "Bad Request",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = BadRequestMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -163,7 +165,7 @@ public interface PlasticCardApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             )
@@ -186,7 +188,7 @@ public interface PlasticCardApi {
                     responseCode = "400",
                     description = "Bad Request",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = BadRequestMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -194,7 +196,7 @@ public interface PlasticCardApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -202,7 +204,7 @@ public interface PlasticCardApi {
                     responseCode = "403",
                     description = "Forbidden",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = ForbiddenMessage.class),
                             mediaType = "application/json"
                     )}
             )
@@ -223,7 +225,7 @@ public interface PlasticCardApi {
                     responseCode = "400",
                     description = "Bad Request",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = BadRequestMessage.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -231,7 +233,7 @@ public interface PlasticCardApi {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = {@Content(
-                            schema = @Schema(implementation = ErrorMessage.class),
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
                             mediaType = "application/json"
                     )}
             )

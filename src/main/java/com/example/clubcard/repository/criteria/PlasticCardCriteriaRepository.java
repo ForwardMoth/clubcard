@@ -3,10 +3,8 @@ package com.example.clubcard.repository.criteria;
 import com.example.clubcard.domain.dto.page.PageDto;
 import com.example.clubcard.domain.dto.plastic_card.PlasticCardFilterRequest;
 import com.example.clubcard.domain.entity.PlasticCard;
-import com.example.clubcard.exception.CustomException;
 import com.example.clubcard.exception.message.AppErrorMessage;
-import com.example.clubcard.exception.message.PlasticCardErrorMessage;
-import com.example.clubcard.exception.message.UserErrorMessage;
+import com.example.clubcard.exception.type.BadRequestException;
 import com.example.clubcard.service.CardTypeService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -55,16 +53,13 @@ public class PlasticCardCriteriaRepository {
                           CriteriaQuery<PlasticCard> criteriaQuery,
                           Root<PlasticCard> plasticCardRoot) {
         try {
-            if(pageDto.getSortDirection().equals(Sort.Direction.ASC)){
+            if (pageDto.getSortDirection().equals(Sort.Direction.ASC)) {
                 criteriaQuery.orderBy(criteriaBuilder.asc(plasticCardRoot.get(pageDto.getSortBy())));
-            } else{
+            } else {
                 criteriaQuery.orderBy(criteriaBuilder.desc(plasticCardRoot.get(pageDto.getSortBy())));
             }
-        } catch (Exception e){
-            throw new CustomException(
-                    AppErrorMessage.INCORRECT_ATTRIBUTE_NAME.getMsg(),
-                    AppErrorMessage.INCORRECT_ATTRIBUTE_NAME.getStatus()
-            );
+        } catch (Exception e) {
+            throw new BadRequestException(AppErrorMessage.INCORRECT_ATTRIBUTE_NAME.getName());
         }
     }
 
@@ -84,21 +79,21 @@ public class PlasticCardCriteriaRepository {
                                    Root<PlasticCard> plasticCardRoot) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if (Objects.nonNull(plasticCardFilterRequest.getStatus())){
+        if (Objects.nonNull(plasticCardFilterRequest.getStatus())) {
             predicates.add(
                     criteriaBuilder.equal(plasticCardRoot.get("status"),
                             plasticCardFilterRequest.getStatus())
             );
         }
 
-        if (Objects.nonNull(plasticCardFilterRequest.getCreatedAt())){
+        if (Objects.nonNull(plasticCardFilterRequest.getCreatedAt())) {
             predicates.add(
                     criteriaBuilder.equal(plasticCardRoot.get("createdAt"),
                             plasticCardFilterRequest.getCreatedAt())
             );
         }
 
-        if (Objects.nonNull(plasticCardFilterRequest.getCardTypeId())){
+        if (Objects.nonNull(plasticCardFilterRequest.getCardTypeId())) {
             predicates.add(
                     criteriaBuilder.equal(plasticCardRoot.get("cardType"),
                             cardTypeService.findById(plasticCardFilterRequest.getCardTypeId()))

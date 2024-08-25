@@ -4,8 +4,9 @@ import com.example.clubcard.domain.dto.card_type.CardTypeRequest;
 import com.example.clubcard.domain.dto.card_type.CardTypeResponse;
 import com.example.clubcard.domain.entity.CardType;
 import com.example.clubcard.domain.mapper.CardTypeMapper;
-import com.example.clubcard.exception.CustomException;
 import com.example.clubcard.exception.message.CardTypeErrorMessage;
+import com.example.clubcard.exception.type.BadRequestException;
+import com.example.clubcard.exception.type.NotFoundException;
 import com.example.clubcard.repository.CardTypeRepository;
 import com.example.clubcard.service.CardTypeService;
 import jakarta.transaction.Transactional;
@@ -22,10 +23,9 @@ public class CardTypeServiceImpl implements CardTypeService {
     private final CardTypeRepository cardTypeRepository;
 
     @Override
-    public CardType findById(Long id){
+    public CardType findById(Long id) {
         return cardTypeRepository.findById(id).orElseThrow(
-                () -> new CustomException(CardTypeErrorMessage.CARD_TYPE_EXISTS.getMsg(),
-                        CardTypeErrorMessage.CARD_TYPE_EXISTS.getStatus())
+                () -> new NotFoundException(CardTypeErrorMessage.CARD_TYPE_NOT_FOUND.getName())
         );
     }
 
@@ -41,9 +41,8 @@ public class CardTypeServiceImpl implements CardTypeService {
 
     @Override
     public CardTypeResponse createCardType(CardTypeRequest request) {
-        if(cardTypeRepository.existsByName(request.getName())){
-            throw new CustomException(CardTypeErrorMessage.CARD_TYPE_EXISTS.getMsg(),
-                    CardTypeErrorMessage.CARD_TYPE_EXISTS.getStatus());
+        if (cardTypeRepository.existsByName(request.getName())) {
+            throw new BadRequestException(CardTypeErrorMessage.CARD_TYPE_EXISTS.getName());
         }
 
         CardType cardType = cardTypeMapper.toEntity(request);
@@ -63,9 +62,8 @@ public class CardTypeServiceImpl implements CardTypeService {
     public void deleteCardType(Long id) {
         CardType cardType = findById(id);
 
-        if (cardType.getPlasticCards().size() > 0){
-            throw new CustomException(CardTypeErrorMessage.CARD_TYPE_EXISTS.getMsg(),
-                    CardTypeErrorMessage.CARD_TYPE_EXISTS.getStatus());
+        if (cardType.getPlasticCards().size() > 0) {
+            throw new BadRequestException(CardTypeErrorMessage.CANT_DELETE_CARD_TYPE.getName());
         }
 
         cardTypeRepository.delete(cardType);
