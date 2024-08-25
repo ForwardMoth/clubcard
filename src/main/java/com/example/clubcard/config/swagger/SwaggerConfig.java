@@ -15,7 +15,7 @@ public class SwaggerConfig {
         return new OpenAPI().addSecurityItem(new SecurityRequirement()
                         .addList("Bearer Authentication"))
                 .components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
-                .info(new Info().title("Jwt auth boilerplate").version("1.0"));
+                .info(new Info().title("Club card backend").version("1.0"));
     }
 
     private SecurityScheme createAPIKeyScheme() {

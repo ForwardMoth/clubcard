@@ -2,11 +2,14 @@
 
 ### Stack
 
+- Java 21
 - Spring Boot 3
 - Spring Security 6
-- JJWT
-- PostgreSQL
-- Swagger
+- PostgreSQL 14
+- Hibernate 6.5.2 
+- Liquibase 4.22
+- Maven 4.0.0
+- Swagger 3.0
 
 ### Features
 
