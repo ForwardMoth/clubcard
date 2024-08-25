@@ -3,6 +3,10 @@ package com.example.clubcard.repository.criteria;
 import com.example.clubcard.domain.dto.page.PageDto;
 import com.example.clubcard.domain.dto.plastic_card.PlasticCardFilterRequest;
 import com.example.clubcard.domain.entity.PlasticCard;
+import com.example.clubcard.exception.CustomException;
+import com.example.clubcard.exception.message.AppErrorMessage;
+import com.example.clubcard.exception.message.PlasticCardErrorMessage;
+import com.example.clubcard.exception.message.UserErrorMessage;
 import com.example.clubcard.service.CardTypeService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -10,10 +14,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class PlasticCardCriteriaRepository {
         Root<PlasticCard> plasticCardRoot = criteriaQuery.from(PlasticCard.class);
         Predicate predicate = getPredicate(plasticCardFilterRequest, plasticCardRoot);
         criteriaQuery.where(predicate);
+        setOrder(pageDto, criteriaQuery, plasticCardRoot);
 
         TypedQuery<PlasticCard> typedQuery = entityManager.createQuery(criteriaQuery);
         typedQuery.setFirstResult(pageDto.getOffset() * pageDto.getLimit());
@@ -49,6 +51,23 @@ public class PlasticCardCriteriaRepository {
         return new PageImpl<>(typedQuery.getResultList(), pageable, plasticCardCount);
     }
 
+    private void setOrder(PageDto pageDto,
+                          CriteriaQuery<PlasticCard> criteriaQuery,
+                          Root<PlasticCard> plasticCardRoot) {
+        try {
+            if(pageDto.getSortDirection().equals(Sort.Direction.ASC)){
+                criteriaQuery.orderBy(criteriaBuilder.asc(plasticCardRoot.get(pageDto.getSortBy())));
+            } else{
+                criteriaQuery.orderBy(criteriaBuilder.desc(plasticCardRoot.get(pageDto.getSortBy())));
+            }
+        } catch (Exception e){
+            throw new CustomException(
+                    AppErrorMessage.INCORRECT_ATTRIBUTE_NAME.getMsg(),
+                    AppErrorMessage.INCORRECT_ATTRIBUTE_NAME.getStatus()
+            );
+        }
+    }
+
     private long getPlasticCardCount() {
         CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
         Root<PlasticCard> countRoot = criteriaQuery.from(PlasticCard.class);
@@ -57,7 +76,8 @@ public class PlasticCardCriteriaRepository {
     }
 
     private Pageable getPageable(PageDto pageDto) {
-        return PageRequest.of(pageDto.getOffset(), pageDto.getLimit());
+        Sort sort = Sort.by(pageDto.getSortDirection(), pageDto.getSortBy());
+        return PageRequest.of(pageDto.getOffset(), pageDto.getLimit(), sort);
     }
 
     private Predicate getPredicate(PlasticCardFilterRequest plasticCardFilterRequest,

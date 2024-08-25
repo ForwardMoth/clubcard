@@ -9,6 +9,7 @@ import com.example.clubcard.service.PlasticCardService;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,14 +32,25 @@ public class PlasticCardController implements PlasticCardApi {
                                                                         @RequestParam(defaultValue = "10")
                                                                         @Min(1)
                                                                         Integer limit,
-                                                                        @RequestParam(defaultValue = "PROGRESS", required = false)
+                                                                        @RequestParam(
+                                                                                defaultValue = "PROGRESS",
+                                                                                required = false)
                                                                         String status,
                                                                         @RequestParam(required = false)
                                                                         Instant createdAt,
                                                                         @RequestParam(required = false)
-                                                                        Long cardTypeId) {
+                                                                        Long cardTypeId,
+                                                                        @RequestParam(
+                                                                                required = false,
+                                                                                defaultValue = "id")
+                                                                        String sortBy,
+                                                                        @RequestParam(
+                                                                                required = false,
+                                                                                defaultValue = "ASC")
+                                                                        Sort.Direction sortDirection) {
         return ResponseEntity.ok(plasticCardService.getAllPlasticCards(
-                new PageDto(offset, limit), new PlasticCardFilterRequest(status, createdAt, cardTypeId)
+                new PageDto(offset, limit, sortBy, sortDirection),
+                new PlasticCardFilterRequest(status, createdAt, cardTypeId)
         ));
     }
 

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,7 @@ import java.time.Instant;
 
 @Tag(name = "Plastic card endpoints")
 public interface PlasticCardApi {
-    @Operation(summary = "Get all plastic cards with pagination and filters (ADMIN ACCESS)")
+    @Operation(summary = "Get all plastic cards with pagination, filters and sorting (ADMIN ACCESS)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -62,12 +63,16 @@ public interface PlasticCardApi {
                                                                  @RequestParam(defaultValue = "10")
                                                                  @Min(1)
                                                                  Integer limit,
-                                                                 @RequestParam(defaultValue = "PROGRESS")
+                                                                 @RequestParam(defaultValue = "PROGRESS", required = false)
                                                                  String status,
-                                                                 @RequestParam
+                                                                 @RequestParam(required = false)
                                                                  Instant createdAt,
-                                                                 @RequestParam
-                                                                 Long cardTypeId);
+                                                                 @RequestParam(required = false)
+                                                                 Long cardTypeId,
+                                                                 @RequestParam(required = false, defaultValue = "id")
+                                                                 String sortBy,
+                                                                 @RequestParam(required = false, defaultValue = "ASC")
+                                                                 Sort.Direction sortDirection);
 
     @Operation(summary = "Get plastic card info (ADMIN ACCESS)")
     @ApiResponses({

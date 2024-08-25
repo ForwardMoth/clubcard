@@ -3,6 +3,8 @@ package com.example.clubcard.repository.criteria;
 import com.example.clubcard.domain.dto.page.PageDto;
 import com.example.clubcard.domain.dto.user.UserFilterRequest;
 import com.example.clubcard.domain.entity.User;
+import com.example.clubcard.exception.CustomException;
+import com.example.clubcard.exception.message.AppErrorMessage;
 import com.example.clubcard.service.PrivilegeService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -10,10 +12,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -38,6 +37,7 @@ public class UserCriteriaRepository {
         Root<User> userRoot = criteriaQuery.from(User.class);
         Predicate predicate = getPredicate(userFilterRequest, userRoot);
         criteriaQuery.where(predicate);
+        setOrder(pageDto, criteriaQuery, userRoot);
 
         TypedQuery<User> typedQuery = entityManager.createQuery(criteriaQuery);
         typedQuery.setFirstResult(pageDto.getOffset() * pageDto.getLimit());
@@ -49,6 +49,22 @@ public class UserCriteriaRepository {
         return new PageImpl<>(typedQuery.getResultList(), pageable, userCount);
     }
 
+    private void setOrder(PageDto pageDto, CriteriaQuery<User> criteriaQuery, Root<User> userRoot) {
+        try {
+            if(pageDto.getSortDirection().equals(Sort.Direction.ASC)){
+                criteriaQuery.orderBy(criteriaBuilder.asc(userRoot.get(pageDto.getSortBy())));
+            } else{
+                criteriaQuery.orderBy(criteriaBuilder.desc(userRoot.get(pageDto.getSortBy())));
+            }
+        } catch (Exception e){
+            throw new CustomException(
+                    AppErrorMessage.INCORRECT_ATTRIBUTE_NAME.getMsg(),
+                    AppErrorMessage.INCORRECT_ATTRIBUTE_NAME.getStatus()
+            );
+        }
+
+    }
+
     private long getUserCount() {
         CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
         Root<User> countRoot = criteriaQuery.from(User.class);
@@ -57,6 +73,7 @@ public class UserCriteriaRepository {
     }
 
     private Pageable getPageable(PageDto pageDto) {
+        Sort sort = Sort.by(pageDto.getSortDirection(), pageDto.getSortBy());
         return PageRequest.of(pageDto.getOffset(), pageDto.getLimit());
     }
 

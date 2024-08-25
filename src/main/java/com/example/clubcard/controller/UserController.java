@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -98,11 +99,16 @@ public class UserController implements UserApi {
             @RequestParam(required = false)
             Long privilegeId,
             @RequestParam(required = false)
-            Boolean isBlocked
+            Boolean isBlocked,
+            @RequestParam(required = false, defaultValue = "id")
+            String sortBy,
+            @RequestParam(required = false, defaultValue = "ASC")
+            Sort.Direction sortDirection
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 userService.getAllUsers(
-                        new PageDto(offset, limit), new UserFilterRequest(lastname, privilegeId, isBlocked)
+                        new PageDto(offset, limit, sortBy, sortDirection),
+                        new UserFilterRequest(lastname, privilegeId, isBlocked)
                 )
         );
     }

@@ -6,6 +6,7 @@ import com.example.clubcard.domain.dto.plastic_card.PlasticCardRequest;
 import com.example.clubcard.domain.dto.plastic_card.PlasticCardResponse;
 import com.example.clubcard.domain.entity.PlasticCard;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 
 public interface PlasticCardService {
     PlasticCard create(Long userId, PlasticCardRequest request);
@@ -20,7 +21,8 @@ public interface PlasticCardService {
 
     void deleteCard(Long id);
 
-    Page<PlasticCardResponse> getAllPlasticCards(PageDto pageDto, PlasticCardFilterRequest plasticCardFilterRequest);
+    Page<PlasticCardResponse> getAllPlasticCards(PageDto pageDto,
+                                                 PlasticCardFilterRequest plasticCardFilterRequest);
 
     PlasticCardResponse getPlasticCard(Long id);
 }

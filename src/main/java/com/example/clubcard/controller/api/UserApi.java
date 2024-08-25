@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -321,7 +322,7 @@ public interface UserApi {
     })
     ResponseEntity<Void> deleteUser(@PathVariable Long id);
 
-    @Operation(summary = "Get all users with pagination and filters (ADMIN ACCESS)")
+    @Operation(summary = "Get all users with pagination, filters and sorting (ADMIN ACCESS)")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -368,6 +369,10 @@ public interface UserApi {
             @RequestParam(required = false)
             Long privilegeId,
             @RequestParam(required = false)
-            Boolean isBlocked
+            Boolean isBlocked,
+            @RequestParam(required = false, defaultValue = "id")
+            String sortBy,
+            @RequestParam(required = false, defaultValue = "ASC")
+            Sort.Direction sortDirection
     );
 }
