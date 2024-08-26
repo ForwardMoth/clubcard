@@ -18,10 +18,22 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             cd /home/${{ secrets.SERVER_USERNAME}}
+            mkdir -p ${{ secrets.SERVER_PATH }}
+            cd ${{ secrets.SERVER_PATH }}
             rm .env
             
-            echo DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }} >> .env 
-            echo DB_USER=${{ secrets.DB_USER }} >> .env  
+            export DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
+            export DB_USER=${{ secrets.DB_USER }}
+            export DB_PASSWORD=${{ secrets.DB_PASSWORD }} 
+            export DB_NAME=${{ secrets.DB_NAME }} 
+            export DB_HOST=${{ secrets.DB_HOST }} 
+            export DB_PORT=${{ secrets.DB_PORT }} 
+            export SECRET_KEY=${{ secrets.SECRET_KEY }} 
+            export HTTP_PORT=${{ secrets.HTTP_PORT }} 
+            export LIFETIME=${{ secrets.LIFETIME }} 
+            
+            echo DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }} >> .env
+            echo DB_USER=${{ secrets.DB_USER }} >> .env
             echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env 
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env 
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env 
@@ -29,7 +41,6 @@ jobs:
             echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env 
             echo HTTP_PORT=${{ secrets.HTTP_PORT }} >> .env 
             echo LIFETIME=${{ secrets.LIFETIME }} >> .env 
-            
             export $(cat .env | xargs) && env 
             
   push_compose:
