@@ -17,6 +17,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
+            cd /home/${{ secrets.REMOTE_SERVER_USERNAME}}
             export DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
             export DB_USER=${{ secrets.DB_USER }}
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
