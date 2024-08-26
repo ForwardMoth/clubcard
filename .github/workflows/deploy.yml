@@ -16,19 +16,16 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          script: |
-            cd /home/${{ secrets.SERVER_USERNAME }}/${{ secrets.SERVER_PATH }}
-            rm .env
-            export DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }} >> .env
-            export DB_USER=${{ secrets.DB_USER }} >> .env
-            export DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
-            export DB_NAME=${{ secrets.DB_NAME }} >> .env
-            export DB_HOST=${{ secrets.DB_HOST }} >> .env
-            export DB_PORT=${{ secrets.DB_PORT }} >> .env
-            export SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-            export HTTP_PORT=${{ secrets.HTTP_PORT }} >> .env
-            export LIFETIME=${{ secrets.LIFETIME }} >> .env
-            export $(cat .env | xargs) && env
+          script:
+            export DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
+            export DB_USER=${{ secrets.DB_USER }}
+            export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            export DB_NAME=${{ secrets.DB_NAME }}
+            export DB_HOST=${{ secrets.DB_HOST }}
+            export DB_PORT=${{ secrets.DB_PORT }}
+            export SECRET_KEY=${{ secrets.SECRET_KEY }}
+            export HTTP_PORT=${{ secrets.HTTP_PORT }}
+            export LIFETIME=${{ secrets.LIFETIME }}
             
   push_compose:
     name: Push docker-compose.yaml to remote server
