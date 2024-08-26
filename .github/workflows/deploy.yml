@@ -6,11 +6,49 @@ on:
       - master
 
 jobs:
-  build-depoy:
-    name: Build and Deploy Spring boot
-
+  export_env:
+    name: Export_env
     runs-on: ubuntu-latest
+    steps:
+      - name: Connect with SSH and export
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            cd /home/${{ secrets.SERVER_USERNAME }}/${{ secrets.SERVER_PATH }}
+            rm .env
+            export DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }} >> .env
+            export DB_USER=${{ secrets.DB_USER }} >> .env
+            export DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
+            export DB_NAME=${{ secrets.DB_NAME }} >> .env
+            export DB_HOST=${{ secrets.DB_HOST }} >> .env
+            export DB_PORT=${{ secrets.DB_PORT }} >> .env
+            export SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+            export HTTP_PORT=${{ secrets.HTTP_PORT }} >> .env
+            export LIFETIME=${{ secrets.LIFETIME }} >> .env
+            export $(cat .env | xargs) && env
+            
+  push_compose:
+    name: Push docker-compose.yaml to remote server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Copy docker-compose.yaml via SSH
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          source: "docker-compose.yaml"
+          target: "/home/${{ secrets.SERVER_USERNAME }}/${{ secrets.SERVER_PATH }}"
+          overwrite: true
 
+  build:
+    name: Build image and push on Dockerhub
+    runs-on: ubuntu-latest
     steps:
       - name: checkout code
         uses: actions/checkout@v3
@@ -26,16 +64,8 @@ jobs:
 
       - name: Build the application
         run: |
-          mvn clean 
-          mvn -B package --file pom.xml  
-
-      - name: Build Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          dockerfile: Dockerfile
-          push: false
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/club-card:latest
+          mvn clean
+          mvn -B package --file pom.xml
 
       - name: Login to Docker hub
         uses: docker/login-action@v1
@@ -51,5 +81,24 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/club-card:latest
 
-
-
+  deploy:
+    name: Deploy
+    needs: [ export_env, build ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect with SSH and Deploy
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            cd /home/${{ secrets.SERVER_USERNAME }}/${{ secrets.SERVER_PATH }}
+            
+            docker container stop $(docker container ls --format '{{.Names}}' | grep -vE '^(${{ secrets.DB_HOST }})$')
+            docker ps -a --format '{{.Names}}' | grep -vE '^(${{ secrets.DB_HOST }})$' | xargs docker rm 
+            docker images --format '{{.Repository}}:{{.Tag}}' | grep -vE '^(postgres:14)$' | xargs docker rmi 
+            
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/club-card:latest
+            
+            docker compose up -d --no-recreate 

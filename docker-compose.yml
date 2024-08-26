@@ -18,10 +18,16 @@ services:
       - club_card
 
   club_card_service:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ${DOCKER_HUB_USERNAME}/club-card:latest
     container_name: club_card
+    depends_on:
+      clubcard:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/api/privilege/all" ]
+      interval: 20s
+      timeout: 5s
+      retries: 5
     environment:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
@@ -33,9 +39,6 @@ services:
       HTTP_PORT: ${HTTP_PORT}
     ports:
       - "${HTTP_PORT}:8080"
-    depends_on:
-      clubcard:
-        condition: service_healthy
     networks:
       - club_card
 
