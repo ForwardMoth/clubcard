@@ -1,6 +1,7 @@
 package com.example.clubcard.controller.api;
 
 import com.example.clubcard.domain.dto.jwt.JwtAuthResponse;
+import com.example.clubcard.domain.dto.jwt.JwtRefreshTokenRequest;
 import com.example.clubcard.domain.dto.sign.SignInRequest;
 import com.example.clubcard.domain.dto.sign.SignUpRequest;
 import com.example.clubcard.exception.message.record.BadRequestMessage;
@@ -59,4 +60,25 @@ public interface AuthApi {
     })
     @Operation(summary = "Login user")
     ResponseEntity<JwtAuthResponse> signIn(@RequestBody @Valid SignInRequest request);
+
+    @Operation(summary = "Refresh access token")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successful registration",
+                    content = {@Content(schema = @Schema(
+                            implementation = JwtAuthResponse.class),
+                            mediaType = "application/json"
+                    )}
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = {@Content(
+                            schema = @Schema(implementation = BadRequestMessage.class),
+                            mediaType = "application/json"
+                    )}
+            )
+    })
+    ResponseEntity<JwtAuthResponse> refresh(@RequestBody @Valid JwtRefreshTokenRequest request);
 }

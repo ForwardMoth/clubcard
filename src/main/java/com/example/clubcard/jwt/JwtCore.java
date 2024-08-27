@@ -23,42 +23,54 @@ import java.util.function.Function;
 @Component
 @Slf4j
 public class JwtCore {
-    @Value("${spring.app.secret_key}")
-    private String secretKey;
+    @Value("${spring.app.access.secret_key}")
+    private String accessKey;
 
-    @Value("${spring.app.lifetime}")
-    private Duration lifetime;
+    @Value("${spring.app.access.lifetime}")
+    private Duration accessLifetime;
 
-    public String extractEmail(String token){
-        return extractClaim(token, Claims::getSubject);
+    @Value("${spring.app.refresh.secret_key}")
+    private String refreshKey;
+
+    @Value("${spring.app.refresh.lifetime}")
+    private Duration refreshLifetime;
+
+    public String extractEmail(String token, Boolean isAccess){
+        return isAccess ? extractClaim(token, accessKey, Claims::getSubject) :
+                extractClaim(token, refreshKey, Claims::getSubject);
     }
 
     public List<?> extractRoles(String token){
-        return extractAllClaims(token).get("role", List.class);
+        return extractAllClaims(token, accessKey).get("role", List.class);
     }
 
-    public String generateToken(User user){
+    public String generateToken(User user, boolean isAccess){
         Map<String, Object> claims = new HashMap<>();
         List<String> role = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
         claims.put("role", role);
         claims.put("user_id", user.getId());
-        return generateToken(claims, user);
+
+        return isAccess ? generateToken(claims, user, accessKey, accessLifetime) :
+                generateToken(claims, user, refreshKey, refreshLifetime);
     }
 
-    private String generateToken(Map<String, Object> claims, UserDetails userDetails){
+    private String generateToken(Map<String, Object> claims,
+                                 UserDetails userDetails,
+                                 String secretKey,
+                                 Duration lifetime){
         Date issuedDate = getIssuedDate();
         return Jwts.builder()
                 .claims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(issuedDate)
-                .setExpiration(getExpirationDate(issuedDate))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .setExpiration(getExpirationDate(issuedDate, lifetime))
+                .signWith(getSigningKey(secretKey), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    private Date getExpirationDate(Date issuedDate){
+    private Date getExpirationDate(Date issuedDate, Duration lifetime){
         return new Date(issuedDate.getTime() + lifetime.toMillis());
     }
 
@@ -66,20 +78,20 @@ public class JwtCore {
         return new Date(System.currentTimeMillis());
     }
 
-    private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
-        final Claims claims = extractAllClaims(token);
+    private <T> T extractClaim(String token, String secretKey, Function<Claims, T> claimsResolvers) {
+        final Claims claims = extractAllClaims(token, secretKey);
         return claimsResolvers.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
+    private Claims extractAllClaims(String token, String secretKey) {
         return Jwts.parser()
-                .setSigningKey(getSigningKey())
+                .setSigningKey(getSigningKey(secretKey))
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
     }
 
-    private Key getSigningKey() {
+    private Key getSigningKey(String secretKey) {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 }

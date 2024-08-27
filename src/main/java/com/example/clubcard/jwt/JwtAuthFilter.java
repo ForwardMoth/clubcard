@@ -59,7 +59,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private String getEmail(String token){
         if (token == null) return null;
         try{
-            return jwtCore.extractEmail(token);
+            return jwtCore.extractEmail(token, true);
         } catch (JwtException | IllegalArgumentException e){
             log.debug("Expired or invalid jwt token");
         }

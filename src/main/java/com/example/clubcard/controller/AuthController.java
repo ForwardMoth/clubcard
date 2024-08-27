@@ -1,9 +1,10 @@
 package com.example.clubcard.controller;
 
 import com.example.clubcard.controller.api.AuthApi;
+import com.example.clubcard.domain.dto.jwt.JwtAuthResponse;
+import com.example.clubcard.domain.dto.jwt.JwtRefreshTokenRequest;
 import com.example.clubcard.domain.dto.sign.SignInRequest;
 import com.example.clubcard.domain.dto.sign.SignUpRequest;
-import com.example.clubcard.domain.dto.jwt.JwtAuthResponse;
 import com.example.clubcard.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,10 @@ public class AuthController implements AuthApi {
     @PostMapping("/signin")
     public ResponseEntity<JwtAuthResponse> signIn(@RequestBody @Valid SignInRequest request) {
         return ResponseEntity.ok(authService.signIn(request));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<JwtAuthResponse> refresh(@RequestBody @Valid JwtRefreshTokenRequest request) {
+        return ResponseEntity.ok(authService.refresh(request));
     }
 }

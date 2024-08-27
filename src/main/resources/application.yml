@@ -14,5 +14,9 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.xml
 
   app:
-    secret_key: ${SECRET_KEY}
-    lifetime: ${LIFETIME}
+    access:
+      secret_key: ${ACCESS_SECRET_KEY}
+      lifetime: ${ACCESS_LIFETIME}
+    refresh:
+      secret_key: ${REFRESH_SECRET_KEY}
+      lifetime: ${REFRESH_LIFETIME}
