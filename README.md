@@ -4,7 +4,6 @@
 
 - Registration users
 - Login
-- Role based authorization
 - Get user info and qr-code, managing user profile
 - Manage card types and privileges
 - Creating plastic cards and managing card requests
