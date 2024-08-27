@@ -43,9 +43,6 @@ services:
     networks:
       - club_card
 
-volumes:
-  pg_data:
-
 networks:
   club_card:
 
