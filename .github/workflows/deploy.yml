@@ -28,9 +28,11 @@ jobs:
             export DB_NAME=${{ secrets.DB_NAME }} 
             export DB_HOST=${{ secrets.DB_HOST }} 
             export DB_PORT=${{ secrets.DB_PORT }} 
-            export SECRET_KEY=${{ secrets.SECRET_KEY }} 
+            export ACCESS_SECRET_KEY=${{ secrets.ACCESS_SECRET_KEY }} 
+            export ACCESS_LIFETIME=${{ secrets.ACCESS_LIFETIME }} 
+            export REFRESH_SECRET_KEY=${{ secrets.REFRESH_SECRET_KEY }} 
+            export REFRESH_LIFETIME=${{ secrets.REFRESH_LIFETIME }} 
             export HTTP_PORT=${{ secrets.HTTP_PORT }} 
-            export LIFETIME=${{ secrets.LIFETIME }} 
             
             echo DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }} >> .env
             echo DB_USER=${{ secrets.DB_USER }} >> .env
@@ -38,9 +40,11 @@ jobs:
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env 
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env 
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env 
-            echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env 
+            echo ACCESS_SECRET_KEY=${{ secrets.ACCESS_SECRET_KEY }} >> .env 
+            echo ACCESS_LIFETIME=${{ secrets.ACCESS_LIFETIME }} >> .env 
+            echo REFRESH_SECRET_KEY=${{ secrets.REFRESH_SECRET_KEY }} >> .env 
+            echo REFRESH_LIFETIME=${{ secrets.REFRESH_LIFETIME }} >> .env 
             echo HTTP_PORT=${{ secrets.HTTP_PORT }} >> .env 
-            echo LIFETIME=${{ secrets.LIFETIME }} >> .env 
             export $(cat .env | xargs) && env 
             
   push_compose:
