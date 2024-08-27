@@ -6,9 +6,8 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      PGDATA: "/var/lib/postgresql/data"
     volumes:
-      - /var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
@@ -44,6 +43,8 @@ services:
     networks:
       - club_card
 
+volumes:
+  pg_data:
 
 networks:
   club_card:
