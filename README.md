@@ -1,6 +1,15 @@
-## Club card Backend
+# Club card service 
 
-### Stack
+## Features
+
+- Registration users
+- Login
+- Role based authorization
+- Get user info and qr-code, managing user profile
+- Manage card types and privileges
+- Creating plastic cards and managing card requests
+
+## Stack
 
 - Java 21
 - Spring Boot 3
@@ -13,13 +22,29 @@
 - Docker 27.1.1
 - Docker Compose 2.29.1
 
-### Features
+## Get Started
 
-- Registration
-- Login
-- Role based authorization
-- Example endpoints with different roles and auth status
+1. Setup configuration .env
 
-### Swagger documentation
+```env
+DB_USER=DB_USER
+DB_PASSWORD=DB_PASSWORD
+DB_NAME=clubcard
+DB_HOST=clubcard
+DB_PORT=5432
+
+SECRET_KEY=SECRET_KEY
+LIFETIME=5m
+
+HTTP_PORT=8080
+```
+
+2. Run
+
+```bash
+docker compose up --build 
+```
+
+## Swagger documentation
 
 http://localhost:8080/api/swagger-ui/index.html
