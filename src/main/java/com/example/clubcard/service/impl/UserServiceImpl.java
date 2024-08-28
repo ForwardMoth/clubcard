@@ -166,6 +166,25 @@ public class UserServiceImpl implements UserService {
         return userMapper.toDto(user);
     }
 
+    @Override
+    public UserBalanceResponse updateBalance(Long id, UserBalanceRequest request) {
+        User user = findById(id);
+
+        if (user.getIsBlocked()){
+            throw new BadRequestException(UserErrorMessage.CANT_UPDATE_FOR_BLOCKED.getName());
+        }
+
+        Integer money = request.getMoney();
+        Integer userBalance = user.getMoney();
+
+        if (userBalance + money < 0){
+            throw new BadRequestException(UserErrorMessage.BALANCE_CANT_BE_NEGATIVE.getName());
+        }
+
+        user.setMoney(userBalance + money);
+        return userMapper.toBalanceResponse(userRepository.save(user));
+    }
+
     private User findByUuid(String uuid) {
         return userRepository.findByUuid(uuid).orElseThrow(
                 () -> new NotFoundException(UserErrorMessage.USER_IS_NOT_FOUND.getName())

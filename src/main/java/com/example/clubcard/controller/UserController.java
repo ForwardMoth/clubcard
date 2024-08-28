@@ -78,6 +78,13 @@ public class UserController implements UserApi {
         return ResponseEntity.ok(userService.updatePrivilege(id, request));
     }
 
+    @Override
+    @PatchMapping("/{id}/update/balance")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<UserBalanceResponse> updateUserBalance(Long id, UserBalanceRequest request) {
+        return ResponseEntity.ok(userService.updateBalance(id, request));
+    }
+
     @DeleteMapping("/{id}/delete")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {

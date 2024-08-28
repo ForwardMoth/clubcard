@@ -304,6 +304,52 @@ public interface UserApi {
     ResponseEntity<UserResponse> updatePrivilege(@PathVariable Long id,
                                                  @RequestBody @Valid PrivilegeIdRequest request);
 
+    @Operation(summary = "Update user balance (ADMIN)")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success updating user privilege",
+                    content = {@Content(
+                            schema = @Schema(implementation = UserResponse.class),
+                            mediaType = "application/json"
+                    )}
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad request",
+                    content = {@Content(
+                            schema = @Schema(implementation = BadRequestMessage.class),
+                            mediaType = "application/json"
+                    )}
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized",
+                    content = {@Content(
+                            schema = @Schema(implementation = UnauthorizedMessage.class),
+                            mediaType = "application/json"
+                    )}
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Forbidden",
+                    content = {@Content(
+                            schema = @Schema(implementation = ForbiddenMessage.class),
+                            mediaType = "application/json"
+                    )}
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = {@Content(
+                            schema = @Schema(implementation = NotFoundMessage.class),
+                            mediaType = "application/json"
+                    )}
+            )
+    })
+    ResponseEntity<UserBalanceResponse> updateUserBalance(@PathVariable Long id,
+                                                          @RequestBody @Valid UserBalanceRequest request);
+
     @Operation(summary = "Delete user (auth)")
     @ApiResponses({
             @ApiResponse(

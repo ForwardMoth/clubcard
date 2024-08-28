@@ -39,4 +39,6 @@ public interface UserService extends UserDetailsService {
     UserQrCodeResponse getQrCode(Long id);
 
     UserResponse getUserByQrCode(String uuid);
+
+    UserBalanceResponse updateBalance(Long id, UserBalanceRequest request);
 }
