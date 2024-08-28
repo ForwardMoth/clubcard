@@ -1,7 +1,9 @@
 package com.example.clubcard.domain.dto.user;
 
 
+import com.example.clubcard.domain.dto.plastic_card.PlasticCardUserResponse;
 import com.example.clubcard.domain.dto.privilege.PrivilegeResponse;
+import com.example.clubcard.domain.entity.PlasticCard;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -40,4 +42,7 @@ public class UserResponse {
 
     @Schema(name = "Privilege")
     private PrivilegeResponse privilegeResponse;
+
+    @Schema(name = "Plastic card")
+    private PlasticCardUserResponse plasticCardUserResponse;
 }

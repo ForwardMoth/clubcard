@@ -1,6 +1,7 @@
 package com.example.clubcard.domain.mapper;
 
 import com.example.clubcard.domain.dto.plastic_card.PlasticCardResponse;
+import com.example.clubcard.domain.dto.plastic_card.PlasticCardUserResponse;
 import com.example.clubcard.domain.entity.PlasticCard;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,4 +14,7 @@ public interface PlasticCardMapper {
     @Mapping(source = "user.privilege", target = "userResponse.privilegeResponse")
     @Mapping(source = "cardType", target = "cardTypeResponse")
     PlasticCardResponse toDto(PlasticCard plasticCard);
+
+    @Mapping(source = "cardType", target = "cardTypeResponse")
+    PlasticCardUserResponse toUserResponse(PlasticCard plasticCard);
 }

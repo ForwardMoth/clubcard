@@ -16,6 +16,8 @@ public interface UserMapper {
 
     @Mapping(source = "privilege", target = "privilegeResponse")
     @Mapping(source = "id",target = "userId")
+    @Mapping(source = "plasticCard", target = "plasticCardUserResponse")
+    @Mapping(source = "plasticCard.cardType", target = "plasticCardUserResponse.cardTypeResponse")
     UserResponse toDto(User user);
 
     @Mapping(source = "privilege", target = "privilegeResponse")
