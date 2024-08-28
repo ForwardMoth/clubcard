@@ -72,15 +72,33 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserProfileResponse getProfile(Long id) {
-        return userMapper.toProfileResponse(findById(id));
+        User user = findById(id);
+
+        if (user.getIsBlocked()){
+            return new UserProfileResponse();
+        }
+
+        return userMapper.toProfileResponse(user);
     }
 
     public UserBalanceResponse getBalance(Long id) {
-        return userMapper.toBalanceResponse(findById(id));
+        User user = findById(id);
+
+        if (user.getIsBlocked()){
+            return new UserBalanceResponse();
+        }
+
+        return userMapper.toBalanceResponse(user);
     }
 
     public UserStatusResponse getStatus(Long id) {
-        return userMapper.toStatusResponse(findById(id));
+        User user = findById(id);
+
+        if (user.getIsBlocked()){
+            return new UserStatusResponse(null, true, null);
+        }
+
+        return userMapper.toStatusResponse(user);
     }
 
     public UserResponse getUser(Long id) {
@@ -128,12 +146,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserQrCodeResponse getQrCode(Long id) {
-        return userMapper.toQrCodeResponse(findById(id));
+        User user = findById(id);
+
+        if (user.getIsBlocked()){
+            return new UserQrCodeResponse();
+        }
+
+        return userMapper.toQrCodeResponse(user);
     }
 
     @Override
     public UserResponse getUserByQrCode(String uuid) {
-        return userMapper.toDto(findByUuid(uuid));
+        User user = findByUuid(uuid);
+
+        if (user.getIsBlocked()){
+            return new UserResponse();
+        }
+
+        return userMapper.toDto(user);
     }
 
     private User findByUuid(String uuid) {
