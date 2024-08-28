@@ -30,7 +30,7 @@ public interface UserApi {
                     responseCode = "200",
                     description = "Success getting user profile",
                     content = {@Content(
-                            schema = @Schema(implementation = UserProfileResponse.class),
+                            schema = @Schema(implementation = UserResponse.class),
                             mediaType = "application/json"
                     )}
             ),
@@ -59,7 +59,7 @@ public interface UserApi {
                     responseCode = "200",
                     description = "Success getting user uuid",
                     content = {@Content(
-                            schema = @Schema(implementation = UserProfileResponse.class),
+                            schema = @Schema(implementation = UserQrCodeResponse.class),
                             mediaType = "application/json"
                     )}
             ),
