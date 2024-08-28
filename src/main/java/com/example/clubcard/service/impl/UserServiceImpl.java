@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
     public UserProfileResponse getProfile(Long id) {
         User user = findById(id);
 
-        if (user.getIsBlocked()){
+        if (user.getIsBlocked()) {
             return new UserProfileResponse();
         }
 
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
     public UserBalanceResponse getBalance(Long id) {
         User user = findById(id);
 
-        if (user.getIsBlocked()){
+        if (user.getIsBlocked()) {
             return new UserBalanceResponse();
         }
 
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
     public UserStatusResponse getStatus(Long id) {
         User user = findById(id);
 
-        if (user.getIsBlocked()){
+        if (user.getIsBlocked()) {
             return new UserStatusResponse(null, true, null);
         }
 
@@ -107,6 +107,9 @@ public class UserServiceImpl implements UserService {
 
     public UserResponse updateProfile(Long id, UserUpdateRequest request) {
         User user = findById(id);
+
+        isUpdateBlocked(user);
+
         userMapper.updateUserFromDto(request, user);
         save(user);
         return userMapper.toDto(user);
@@ -122,8 +125,11 @@ public class UserServiceImpl implements UserService {
     public UserResponse updatePrivilege(Long id, PrivilegeIdRequest request) {
         Privilege privilege = privilegeService.findById(request.getPrivilegeId());
         User user = findById(id);
-        Integer userBalance = user.getMoney(), privilegePrice = privilege.getPrice();
 
+        isUpdateBlocked(user);
+
+        Integer privilegePrice = privilege.getPrice();
+        Integer userBalance = user.getMoney();
         if (userBalance < privilegePrice) {
             throw new BadRequestException(UserErrorMessage.NOT_ENOUGH_MONEY.getName());
         }
@@ -148,7 +154,7 @@ public class UserServiceImpl implements UserService {
     public UserQrCodeResponse getQrCode(Long id) {
         User user = findById(id);
 
-        if (user.getIsBlocked()){
+        if (user.getIsBlocked()) {
             return new UserQrCodeResponse();
         }
 
@@ -159,7 +165,7 @@ public class UserServiceImpl implements UserService {
     public UserResponse getUserByQrCode(String uuid) {
         User user = findByUuid(uuid);
 
-        if (user.getIsBlocked()){
+        if (user.getIsBlocked()) {
             return new UserResponse();
         }
 
@@ -170,14 +176,12 @@ public class UserServiceImpl implements UserService {
     public UserBalanceResponse updateBalance(Long id, UserBalanceRequest request) {
         User user = findById(id);
 
-        if (user.getIsBlocked()){
-            throw new BadRequestException(UserErrorMessage.CANT_UPDATE_FOR_BLOCKED.getName());
-        }
+        isUpdateBlocked(user);
 
         Integer money = request.getMoney();
         Integer userBalance = user.getMoney();
 
-        if (userBalance + money < 0){
+        if (userBalance + money < 0) {
             throw new BadRequestException(UserErrorMessage.BALANCE_CANT_BE_NEGATIVE.getName());
         }
 
@@ -189,6 +193,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUuid(uuid).orElseThrow(
                 () -> new NotFoundException(UserErrorMessage.USER_IS_NOT_FOUND.getName())
         );
+    }
+
+    private void isUpdateBlocked(User user) {
+        if (user.getIsBlocked()) {
+            throw new BadRequestException(UserErrorMessage.CANT_UPDATE_FOR_BLOCKED.getName());
+        }
     }
 }
 
