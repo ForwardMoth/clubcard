@@ -3,9 +3,9 @@ package com.example.clubcard.domain.dto.sign;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 @Data
 @Schema(description = "Registration request")
@@ -14,6 +14,7 @@ public class SignUpRequest {
     @Size(min=5, max=255, message = "Email must contain from 5 to 255 symbols")
     @NotBlank(message = "Email can't be empty")
     @Email(message = "Email must be in the format user@example.com")
+    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
 
     @Schema(description = "Password", example = "password")
