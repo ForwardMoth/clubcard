@@ -1,4 +1,4 @@
-# Club card service 
+# Spring Boot Demo App
 
 ## Features
 
